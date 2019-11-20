@@ -18,6 +18,7 @@ using namespace std;
 
 int main (int argc, char *argv[])
 {
+//	Если не передана конкретная команда, выводим информацию о лабораторной
 	if (argc < 2) {
 		cout << endl;
 		cout << "Laboratory work No. 1" << endl << endl;
@@ -33,6 +34,7 @@ int main (int argc, char *argv[])
 
 	cout << endl;
 
+//	Обработка команды на вывод списка команд
 	if (userCommand == "--help") {
 
 		cout << "Laboratory work No. 1" << endl << endl;
@@ -41,6 +43,7 @@ int main (int argc, char *argv[])
 		cout << setw(14) << left << "--sizes"        << " - displays variable sizes" << endl;
 		cout << setw(14) << left << "--hex [number]" << " - displays the number converted from 10 number system to 16 number system" << endl;
 
+//	Обработка команды на вывод размеров переменных
 	} else if (userCommand == "--sizes") {
 
 		short width = 18;
@@ -71,6 +74,7 @@ int main (int argc, char *argv[])
 
 		cout << setw(width) << left << "bool" << " - " << sizeof(bool) << " bytes";
 
+//	Обработка команды, которая переводит переданное число в 16 систему счисления
 	} else if (userCommand == "--hex") {
 
 		if (argc < 3) {
