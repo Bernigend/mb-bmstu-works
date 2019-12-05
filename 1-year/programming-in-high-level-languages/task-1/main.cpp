@@ -52,11 +52,11 @@ int main()
 	struct tm tm1 = { sec1, min1, hour1, day1, month1 - 1, year1 - 1900 };
 	struct tm tm2 = { sec2, min2, hour2, day2, month2 - 1, year2 - 1900 };
 	
-//  Получаем время в секундах
+//	Получаем время в секундах
 	time_t time1 = mktime(&tm1);
 	time_t time2 = mktime(&tm2);
 
-//  Находим разность между датами в секундах
+//	Находим разность между датами в секундах
 	if (time1 != (time_t)(-1) && time2 != (time_t)(-1)) {
 		double secondDiff = difftime(time2, time1);
 		cout << "Diff: " << secondDiff << " sec";
