@@ -1,11 +1,11 @@
 #include <iostream>
 
 /**
- * Проверяет результат работы функци scanf
+ * РџСЂРѕРІРµСЂСЏРµС‚ СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†Рё scanf
  *
- * @param result - возвращаемое значение функции scanf
- * @param countVars - количество переменных для ввода
- * @return false при несоответствии данных, иначе true
+ * @param result - РІРѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёРё scanf
+ * @param countVars - РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ РІРІРѕРґР°
+ * @return false РїСЂРё РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё РґР°РЅРЅС‹С…, РёРЅР°С‡Рµ true
  */
 bool checkScanfResult(int result, int countVars)
 {
@@ -13,12 +13,12 @@ bool checkScanfResult(int result, int countVars)
 }
 
 /**
- * Проверяет корректность введённой даты
+ * РџСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРµРґС‘РЅРЅРѕР№ РґР°С‚С‹
  *
- * @param day - день
- * @param month - месяц
- * @param year - год
- * @return false при несоответствии данных, иначе true
+ * @param day - РґРµРЅСЊ
+ * @param month - РјРµСЃСЏС†
+ * @param year - РіРѕРґ
+ * @return false РїСЂРё РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё РґР°РЅРЅС‹С…, РёРЅР°С‡Рµ true
  */
 bool checkDate(int day, int month, int year)
 {
@@ -26,12 +26,12 @@ bool checkDate(int day, int month, int year)
 }
 
 /**
- * Проверяет корректность введённого времени
+ * РџСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРµРґС‘РЅРЅРѕРіРѕ РІСЂРµРјРµРЅРё
  *
- * @param hour - часы
- * @param min - минуты
- * @param sec - секунды
- * @return false при несоответствии данных, иначе true
+ * @param hour - С‡Р°СЃС‹
+ * @param min - РјРёРЅСѓС‚С‹
+ * @param sec - СЃРµРєСѓРЅРґС‹
+ * @return false РїСЂРё РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё РґР°РЅРЅС‹С…, РёРЅР°С‡Рµ true
  */
 bool checkTime(int hour, int min, int sec)
 {
@@ -39,17 +39,17 @@ bool checkTime(int hour, int min, int sec)
 }
 
 /**
- * ??????????????? ??????? ??? ????? ???? ? ???????
+ * РџСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРµРґС‘РЅРЅС‹С… РґР°РЅРЅС‹С…
  *
- * @param day - день
- * @param month - месяц
- * @param year - год
- * @param hour - часы
- * @param min - минуты
- * @param sec - секунды
- * @param result - возвращаемое значение функции scanf
- * @param countVars - количество переменных для ввода
- * @return описание ошибки, иначе пустую строку
+ * @param day - РґРµРЅСЊ
+ * @param month - РјРµСЃСЏС†
+ * @param year - РіРѕРґ
+ * @param hour - С‡Р°СЃС‹
+ * @param min - РјРёРЅСѓС‚С‹
+ * @param sec - СЃРµРєСѓРЅРґС‹
+ * @param result - РІРѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёРё scanf
+ * @param countVars - РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ РІРІРѕРґР°
+ * @return РѕРїРёСЃР°РЅРёРµ РѕС€РёР±РєРё, РёРЅР°С‡Рµ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
  */
 std::string checkInputData(int day, int month, int year, int hour, int min, int sec, int result, int countVars)
 {
