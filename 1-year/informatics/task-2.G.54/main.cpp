@@ -12,67 +12,69 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
-#include <ctime>
 
 using namespace std;
 
-int weekday(int day, int month, int year);
+// Сокращаем название типа
+typedef unsigned int Uint;
+
+Uint countMonthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+Uint getWeekday(Uint day, Uint month, Uint year);
 
 int main()
 {
-	int day, weekdayNumber;
+	Uint day, weekday;
 
-	cout << "Input day number: ";
-	cin >> day;
+	cout << "Enter the day number and the day number of the week separated by a space: ";
+	cin >> day >> weekday;
 	cout << endl;
 
-	if (cin.fail() || day < 1 || day > 31) {
-		cout << "Error: the day number must be between 1 and 31!";
+//	Если произошла ошибка при вводе данных, либо они не удовлетворяют нас, прекращаем работу
+	if (cin.fail() || day < 1 || day > 31 || weekday < 1 || weekday > 7) {
+		cout << "Error: the day number or the day number of the week is invalid! Try again." << endl;
 		return EXIT_FAILURE;
 	}
 
-	cout << "Input weekday (number 1-7): ";
-	cin >> weekdayNumber;
-	cout << endl;
+	if (weekday == 7) weekday = 0;
 
-	if (cin.fail() || weekdayNumber < 1 || weekdayNumber > 7) {
-		cout << "Error: the weekday number must be between 1 and 7!";
-		return EXIT_FAILURE;
-	}
-	
-	if (weekdayNumber == 7) weekdayNumber = 0;
+	Uint count = 0;
 
-	int count = 0;
+	for (Uint year = 1901; year < 2001; year++) {
+//		Если год високосный, то в феврале 29 дней
+		(year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) ?: countMonthDays[1] = 29;
 
-	for (int year = 1900; year < 2001; year++) {
-		for (int month = 1; month <= 12; month++) {
-			if (weekdayNumber == weekday(day, month, year))
+		for (Uint month = 1; month < 13; month++) {
+//			Если число не входит в числа месяца, пропускаем этот месяц
+			if (day > countMonthDays[month])
+					continue;
+
+			if (getWeekday(day, month, year) == weekday)
 				count++;
 		}
 	}
 
-	cout << "Count: " << count << endl << endl;
+	cout << "Count: " << count << endl;
+
+	return EXIT_SUCCESS;
 }
 
 /**
- * Определяет и возвращает номер дня недели
+ * Возвращает номер дня недели (0 - воскресенье, 1 - понедельник, ...)
+ * ---
+ * Использует формулу "вечного календаря", см. https://ru.wikibooks.org/wiki/Реализации_алгоритмов/Вечный_календарь
  *
- * @param int day - день месяца (1-31)
- * @param int month - номер месяца (1-12)
- * @param int year - год (1900-...)
+ * @param day - число месяца
+ * @param month - месяц
+ * @param year - год
+ * @return номер дня недели (0 - воскресенье, 1 - понедельник, ...)
  */
-int weekday(int day, int month, int year)
+Uint getWeekday(Uint day, Uint month, Uint year)
 {
-	struct tm time_in{};
-	struct tm* time_out;
-	time_t time_tmp;
+	if (month == 1 || month == 2) {
+		year--;
+		month += 10;
+	} else
+		month -= 2;
 
-	time_in = { 0, 0, 0, day, month - 1, year - 1900 };
-	time_tmp = mktime(&time_in);
-	time_out = localtime(&time_tmp);
-
-	if (time_out != nullptr)
-		return time_out->tm_wday;
-	else
-		return -1;
+	return ((day + (31u*month)/12u + year + year/4u - year/100u + year/400u) % 7u);
 }
