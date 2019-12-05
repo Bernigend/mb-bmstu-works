@@ -27,6 +27,7 @@ int main()
 //	Вводим дату и время первого события
 	cout << "Input date and time of 1st event like 'dd.mm.YYYY hh:mm:ss': ";
 	result = scanf("%d.%d.%d %d:%d:%d", &day1, &month1, &year1, &hour1, &min1, &sec1);
+	cout << endl;
 
 	// Проверяем корректность данных
 	error = checkInputData(day1, month1, year1, hour1, min1, sec1, result, 6);
@@ -38,6 +39,7 @@ int main()
 //	Вводим дату и время второго события
 	cout << "Input date and time of 2nd event like 'dd.mm.YYYY hh:mm:ss': ";
 	result = scanf("%d.%d.%d %d:%d:%d", &day2, &month2, &year2, &hour2, &min2, &sec2);
+	cout << endl;
 	
 	// Проверяем корректность данных
 	error = checkInputData(day2, month2, year2, hour2, min2, sec2, result, 6);
@@ -57,7 +59,7 @@ int main()
 // Находим разность между датами в секундах
 	if (time1 != (time_t)(-1) && time2 != (time_t)(-1)) {
 		double secondDiff = difftime(time2, time1);
-		cout << endl << "Diff: " << secondDiff << " sec";
+		cout << "Diff: " << secondDiff << " sec";
 	}
 	else cout << "Undefined error";
 
