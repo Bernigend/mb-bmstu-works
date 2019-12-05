@@ -48,7 +48,7 @@ int main()
 	}
 
 //	Если введённые числа больше максимального разрешённого, прекращаем работу
-	if (startNum >= MAX_INPUT_NUM || endNum > MAX_INPUT_NUM) {
+	if (startNum > MAX_INPUT_NUM || endNum > MAX_INPUT_NUM) {
 		cout << "Error: number cannot be more than " << MAX_INPUT_NUM << endl;
 		return EXIT_FAILURE;
 	}
