@@ -1,7 +1,7 @@
 #include <iostream>
 
 /**
- * Проверяет результат работы функции scanf
+ * Проверяет результат работы функци scanf
  *
  * @param result - возвращаемое значение функции scanf
  * @param countVars - количество переменных для ввода
@@ -15,7 +15,7 @@ bool checkScanfResult(int result, int countVars)
 /**
  * Проверяет корректность введённой даты
  *
- * @param day - день недели
+ * @param day - день
  * @param month - месяц
  * @param year - год
  * @return false при несоответствии данных, иначе true
@@ -39,9 +39,9 @@ bool checkTime(int hour, int min, int sec)
 }
 
 /**
- * Вспомогательная функция для ввода даты и времени
+ * ??????????????? ??????? ??? ????? ???? ? ???????
  *
- * @param day - день недели
+ * @param day - день
  * @param month - месяц
  * @param year - год
  * @param hour - часы
@@ -49,7 +49,7 @@ bool checkTime(int hour, int min, int sec)
  * @param sec - секунды
  * @param result - возвращаемое значение функции scanf
  * @param countVars - количество переменных для ввода
- * @return описание ошибки, либо пустая строка
+ * @return описание ошибки, иначе пустую строку
  */
 std::string checkInputData(int day, int month, int year, int hour, int min, int sec, int result, int countVars)
 {
