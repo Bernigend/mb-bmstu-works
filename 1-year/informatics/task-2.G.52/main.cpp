@@ -13,27 +13,33 @@
 using namespace std;
 
 int main() {
-//	Максимальное количество разрядов входного числа
-	const short MAX_BASIS = 4;
+	string result, inputNumber;
 
 //	Включаем поддержку кирилицы в консоли CLion
 	system("chcp 65001");
 //	setlocale(LC_ALL, "Russian");
 
+//	Максимальное количество разрядов входного числа + 1
+	const short MAX_BASIS = 5;
+
 //	Основания
-	string basis[MAX_BASIS][10] = {
+	const string basis[MAX_BASIS][10] = {
 			{ "","","","","","","","","","" },
+			{ "","одна","две","три","четыре","пять","шесть","семь","восемь","девять" },
 			{ "","сто","двести","триста","четыреста","пятьсот","шестьсот","семьсот","восемьсот","девятьсот" },
 			{ "","десять","двадцать","тридцать","сорок","пятьдесят","шестьдесят","семьдесят","восемьдесят","девяносто" },
 			{ "","один","два","три","четыре","пять","шесть","семь","восемь","девять" },
 	};
 
+//	Падежные окончания тысяч
+	const string ends[10] = { "тысяч", "тысяча", "тысячи", "тысячи", "тысячи", "тысячь", "тысячь", "тысячь", "тысячь", "тысячь" };
+
 //	Числа от 10 до 19, т.к. их названия уникальны
-	string dec[10] = { "десять","одиннадцать","двенадцать","тринадцать","четырнадцать","пятнадцать","шестнадцать","семнадцать","восемнадцать","девятнадцать" };
-	string result, inputNumber;
+	const string dec[10] = { "десять","одиннадцать","двенадцать","тринадцать","четырнадцать","пятнадцать","шестнадцать","семнадцать","восемнадцать","девятнадцать" };
+
 
 //	Вводим число
-	cout << "Input number: ";
+	cout << "Input number (max. digit number - " << MAX_BASIS - 1 << "): ";
 	cin >> inputNumber;
 	cout << endl;
 
@@ -48,9 +54,24 @@ int main() {
 	else {
 		result = "Answer: ";
 
-		for (int i = 0; i < inputNumber.size(); i++) {
-			if (i != 0)
+		for (unsigned int i = 0; i < inputNumber.size(); i++) {
+
+			if (i != 0 && inputNumber[i-1] != ' ')
 				result.append(" ");
+
+//			Если очередь дошла до пятизначного числа, начинающегося на 1 - обрабатываем как числа от 10 до 19
+			if (inputNumber.size() - i == 5 && inputNumber[i] == '1') {
+				result.append(dec[(int)inputNumber[i+1]-48]);
+				continue;
+			}
+
+//			Если очередь дошла до тысячи, обрабатываем как количество тысяч + тысяча в нужном падеже
+			if (inputNumber.size() > 3 && inputNumber.size() - i == 4) {
+				result.append(basis[MAX_BASIS - inputNumber.size() + i][(int)inputNumber[i] - 48]);
+				result.append(" ");
+				result.append(ends[(int)inputNumber[inputNumber.size() - (inputNumber.size() - i)]-48]);
+				continue;
+			}
 
 //			Если очередь дошла до двузначного числа, начинающегося на 1 - обрабатываем как числа от 10 до 19
 			if (inputNumber.size()-i == 2 && inputNumber[i] == '1') {
