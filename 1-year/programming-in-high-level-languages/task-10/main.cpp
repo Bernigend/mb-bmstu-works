@@ -18,8 +18,8 @@ using namespace std;
 void setUpperCase(char& symbol);
 
 int main() {
-	const string PATH_TO_INPUT_FILE  = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task10\texts\input.txt)";
-	const string PATH_TO_OUTPUT_FILE = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task10\texts\output.txt)";
+	const string PATH_TO_INPUT_FILE  = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task-10\texts\input.txt)";
+	const string PATH_TO_OUTPUT_FILE = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task-10\texts\output.txt)";
 
 	ifstream inputFile;
 	string tmpString;
