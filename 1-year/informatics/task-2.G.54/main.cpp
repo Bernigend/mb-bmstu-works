@@ -41,16 +41,19 @@ int main()
 
 	for (Uint year = 1901; year < 2001; year++) {
 //		Если год високосный, то в феврале 29 дней
-		(year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) ?: countMonthDays[1] = 29;
+		(year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) ? countMonthDays[1] = countMonthDays[1] : countMonthDays[1] = 29;
 
 		for (Uint month = 1; month < 13; month++) {
 //			Если число не входит в числа месяца, пропускаем этот месяц
 			if (day > countMonthDays[month])
-					continue;
+				continue;
 
 			if (getWeekday(day, month, year) == weekday)
 				count++;
 		}
+
+//		Возвращаем обычное количество дней в феврале
+		countMonthDays[1] = 28;
 	}
 
 	cout << "Count: " << count << endl;
