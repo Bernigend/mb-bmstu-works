@@ -27,8 +27,8 @@ void convertString(string& stringToConvert, const char* symbols)
 
 int main()
 {
-	const string PATH_TO_INPUT_FILE  = R"(C:\BMSTU\programming-on-high-level-lang\task-11\texts\input.txt)";
-	const string PATH_TO_OUTPUT_FILE = R"(C:\BMSTU\programming-on-high-level-lang\task-11\texts\output.txt)";
+	const string PATH_TO_INPUT_FILE  = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task-11\texts\input.txt)";
+	const string PATH_TO_OUTPUT_FILE = R"(C:\Development\repositories\mb-bmstu-works\1-year\programming-in-high-level-languages\task-11\texts\output.txt)";
 	char symbols[123] = { 0 };
 
 //	Символы первой строки
