@@ -35,7 +35,7 @@ int main(int argc, char* argv)
 	// Попадает в heap, потому что память выделяется во время работы программы
 	cout << setw(width) << left << "HEAP: " << malloc(8) << endl;
 	
-	// Попадает в stack, потому что является локальный переменной функции
+	// Попадает в stack, потому что является локальной переменной функции
 	cout << setw(width) << left << "Stack: " << &width << endl;
 
 	return EXIT_SUCCESS;
