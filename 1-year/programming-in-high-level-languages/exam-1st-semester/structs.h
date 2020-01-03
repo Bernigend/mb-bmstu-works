@@ -1,32 +1,26 @@
 /**
- * Created by Bernigend on 27.12.2019.
+ * Created by Bernigend on 03.01.2020
  */
 
-#ifndef EXAM_1ST_SEMESTER_STRUCTS_H
-#define EXAM_1ST_SEMESTER_STRUCTS_H
+#ifndef TEST_EXAM_STRUCTS_H
+#define TEST_EXAM_STRUCTS_H
 
 typedef unsigned int Uint;
 
 /**
  * Структура минимального элемента
+ * @value - значение минимального элемента
+ * @initialized - был ли найден минимальный элемент
  */
-struct MinElement
-{
-	Uint row;
-	Uint col;
-	int value;
+struct MinElement {
+	int value = 0;
 	bool initialized = false;
 
-	explicit MinElement(Uint _row = 0, Uint _col = 0, int _value = 0, bool _initialized = false) {
-		row = _row;
-		col = _col;
-		value = _value;
-		initialized = _initialized;
-	}
-
-	void fill(Uint _row, Uint _col, int _value) {
-		row = _row;
-		col = _col;
+	/**
+	 * Заполняет структуру данными об элементе
+	 * @param _value - значение нового минимального элемента
+	 */
+	void set(int _value) {
 		value = _value;
 		initialized = true;
 	}
@@ -34,12 +28,17 @@ struct MinElement
 
 /**
  * Структура суммы элементов
+ * @value - сумма значений
+ * @countNumbers - количество чисел
  */
-struct SumOfElements
-{
+struct SumOfElements {
 	int value = 0;
 	Uint countNumbers = 0;
 
+	/**
+	 * Прибавляет к сумме переданное число
+	 * @param _add - число для сложения
+	 */
 	void add(int _add) {
 		value += _add;
 		countNumbers++;
@@ -48,14 +47,18 @@ struct SumOfElements
 
 /**
  * Структура матрицы
+ * @values - значения элементов матрицы
+ * @numRows - количество строк матрицы
+ * @numCols - количество столбцов матрицы
+ * @minElement - структура минимального элемента
+ * @sumOfElements - структура суммы элементов
  */
-struct Matrix
-{
-	int** values{};
-	Uint countRows = 0;
-	Uint countCols = 0;
-	MinElement minElement;
-	SumOfElements sumOfElements;
+struct Matrix {
+	int **values{};
+	Uint numRows = 0;
+	Uint numCols = 0;
+	MinElement *minElement = new MinElement;
+	SumOfElements *sumOfElements = new SumOfElements;
 };
 
-#endif //EXAM_1ST_SEMESTER_STRUCTS_H
+#endif //TEST_EXAM_STRUCTS_H
