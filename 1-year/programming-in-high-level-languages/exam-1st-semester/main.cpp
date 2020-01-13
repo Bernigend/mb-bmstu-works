@@ -1,6 +1,6 @@
-﻿/**
- * Created by Bernigend at 24.12.2019.
- * 
+/**
+ * Created by Bernigend on 03.01.2020.
+ *
  * ----
  *
  * Зачётная задача №4.
@@ -11,19 +11,17 @@
 #include "structs.h"
 #include "functions.h"
 
-int main()
-{
+int main() {
 //	Структура матрицы
-	Matrix matrix;
+	auto* matrix = new Matrix;
 
 	try {
 
 //		Вводим размерность матрицы
-		inputMatrixInfo(matrix);
+		enterMatrixSizes(matrix);
 
-//		Вводим значения элементов матрицы и проводим вычисления
-		inputMatrixData(matrix);
-		std::cout << std::endl;
+//		Вводим значения элементов матрицы
+		enterMatrixData(matrix);
 
 	} catch (std::exception& e) {
 		std::cerr << e.what();
@@ -34,15 +32,15 @@ int main()
 	printMatrix(matrix);
 	std::cout << std::endl;
 
-//	Выводим информацию о минимальном элементе
+//	Выводим информацию о минимальном элементе матрицы
 	printMinElementInfo(matrix);
 	std::cout << std::endl;
 
-//	Выводит информацию о сумме неотрицательных элементов
-	printSumElementsInfo(matrix);
+//	Выводим информацию о сумме неотриц. элементов матрицы
+	printSumOfElementsInfo(matrix);
 	std::cout << std::endl;
 
-//	Выводим матрицу с заменой элемента
+//	Выводим матрицу с заменой минимального элемента
 	printMatrix(matrix, true);
 
 	return EXIT_SUCCESS;
