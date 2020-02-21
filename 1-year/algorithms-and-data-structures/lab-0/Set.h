@@ -10,6 +10,9 @@
 
 
 class Set {
+	int *numbers = nullptr;
+	uInt size = 0;
+
 public:
     /**
      * Конструктор класса
@@ -18,7 +21,7 @@ public:
      * @param size
      * @param values
      */
-    explicit Set(int size = 0, const int *values = nullptr);
+    explicit Set(int size, const int *values);
 
     /**
      * Добавляет число к множеству
@@ -55,7 +58,7 @@ public:
      * Разность множеств
      * @param set
      */
-    void difference(const Set *set);
+    void differenceWith(const Set *set);
 
     /**
      * Проверяет, является ли множется пустым
