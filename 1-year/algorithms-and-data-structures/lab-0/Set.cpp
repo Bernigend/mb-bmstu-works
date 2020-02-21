@@ -6,6 +6,13 @@
 #include "types.h"
 #include "Set.h"
 
+/**
+ * Конструктор класса
+ * При указании размера множества заполняет тот нулями
+ * При указании значений заполняет множество ими
+ * @param size
+ * @param values
+ */
 Set::Set(int size, const int *values)
 {
     if (size > 0) {
@@ -22,6 +29,10 @@ Set::Set(int size, const int *values)
     }
 }
 
+/**
+ * Добавляет число к множеству
+ * @param number - число для добавления
+ */
 void Set::addNumber(int number)
 {
     int *oldNumbers = this->numbers;
@@ -35,6 +46,11 @@ void Set::addNumber(int number)
     this->size++;
 }
 
+/**
+ * Проверяет, включает ли множество переданное число
+ * @param number - число для поиска
+ * @return
+ */
 bool Set::isInclude(int number)
 {
     for (uInt i = 0; i < this->size; i++) {
@@ -46,6 +62,10 @@ bool Set::isInclude(int number)
     return false;
 }
 
+/**
+ * Удаляет число из множества, если оно там есть
+ * @param number - число для удаления
+ */
 void Set::deleteNumber(int number)
 {
     if (this->size == 0) {
@@ -71,6 +91,10 @@ void Set::deleteNumber(int number)
     }
 }
 
+/**
+ * Объединяет переданное множество с текущим
+ * @param set - множество для объединения
+ */
 void Set::uniteWith(const Set *set)
 {
     uInt tmpSize = this->size;
@@ -106,6 +130,10 @@ void Set::uniteWith(const Set *set)
     this->size    = tmpSize;
 }
 
+/**
+ * Пересечение множеств
+ * @param set - множество для пересечения
+ */
 void Set::intersectionWith(const Set *set)
 {
     uInt tmpSize = 0;
@@ -144,6 +172,10 @@ void Set::intersectionWith(const Set *set)
     this->size    = tmpSize;
 }
 
+/**
+ * Разность множеств
+ * @param set
+ */
 void Set::differenceWith(const Set *set)
 {
     uInt tmpSize = 0;
@@ -174,11 +206,18 @@ void Set::differenceWith(const Set *set)
     this->size    = tmpSize;
 }
 
+/**
+ * Проверяет, является ли множется пустым
+ * @return
+ */
 bool Set::isEmpty() const
 {
     return this->size == 0;
 }
 
+/**
+ * Выводит набор чисел на экран
+ */
 void Set::show() const
 {
     for (uInt i = 0; i < this->size; i++) {
@@ -186,6 +225,11 @@ void Set::show() const
     }
 }
 
+/**
+ * Возвращает элемент множества
+ * @param index
+ * @return
+ */
 int Set::getNumber(uInt index) const {
     if (index > this->size) {
         return 0;
@@ -193,6 +237,10 @@ int Set::getNumber(uInt index) const {
     return this->numbers[index];
 }
 
+/**
+ * Возвращает количество элементов множества
+ * @return
+ */
 uInt Set::getSize() const {
     return size;
 }
