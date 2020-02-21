@@ -8,6 +8,16 @@
 
 /**
  * Конструктор класса
+ * @param set
+ */
+Set::Set(Set *set)
+{
+	this->numbers = set->getNumbers();
+	this->size    = set->getSize();
+}
+
+/**
+ * Конструктор класса
  * При указании размера множества заполняет тот нулями
  * При указании значений заполняет множество ими
  * @param size
@@ -218,8 +228,7 @@ bool Set::isEmpty() const
 /**
  * Выводит набор чисел на экран
  */
-void Set::show() const
-{
+void Set::show() const {
     for (uInt i = 0; i < this->size; i++) {
         std::cout << this->numbers[i] << std::endl;
     }
@@ -238,9 +247,31 @@ int Set::getNumber(uInt index) const {
 }
 
 /**
+ * Возвращает все элементы множества
+ * @param index
+ * @return
+ */
+int * Set::getNumbers() const {
+	return this->numbers;
+}
+
+/**
  * Возвращает количество элементов множества
  * @return
  */
 uInt Set::getSize() const {
     return size;
+}
+
+/**
+ * Объединение двух множеств
+ * @param set1
+ * @param set2
+ * @return объединенный набор
+ */
+Set * Set::unite(Set *set1, Set *set2)
+{
+	Set *newSet = new Set(set1);
+	newSet->uniteWith(set2);
+	return newSet;
 }

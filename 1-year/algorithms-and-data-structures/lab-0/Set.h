@@ -14,6 +14,12 @@ class Set {
 	uInt size = 0;
 
 public:
+	/**
+	 * Конструктор класса
+	 * @param set
+	 */
+	explicit Set(Set *set);
+
     /**
      * Конструктор класса
      * При указании размера множества заполняет тот нулями
@@ -78,11 +84,26 @@ public:
      */
     int getNumber(uInt index) const;
 
+	/**
+	 * Возвращает все элементы множества
+	 * @param index
+	 * @return
+	 */
+	int * getNumbers() const;
+
     /**
      * Возвращает количество элементов множества
      * @return
      */
     uInt getSize() const;
+
+    /**
+     * Объединение двух множеств
+     * @param set1
+     * @param set2
+     * @return объединенный набор
+     */
+    static Set * unite (Set *set1, Set *set2);
 };
 
 
