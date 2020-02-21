@@ -275,3 +275,29 @@ Set * Set::unite(Set *set1, Set *set2)
 	newSet->uniteWith(set2);
 	return newSet;
 }
+
+/**
+ * Пересечение двух переданных множеств
+ * @param set1
+ * @param set2
+ * @return
+ */
+Set * Set::intersection(Set *set1, Set *set2)
+{
+	Set *newSet = new Set(set1);
+	newSet->intersectionWith(set2);
+	return newSet;
+}
+
+/**
+ * Разность двух переданных множеств
+ * @param set1
+ * @param set2
+ * @return
+ */
+Set * Set::difference(Set *set1, Set *set2)
+{
+	Set *newSet = new Set(set1);
+	newSet->differenceWith(set2);
+	return newSet;
+}

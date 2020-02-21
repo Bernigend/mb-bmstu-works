@@ -13,13 +13,4 @@ int main()
     Set* set2 = new Set(3, numbers2);
     set2->show();
     std::cout << std::endl;
-
-//    set1->uniteWith(set2);
-//    set1->intersectionWith(set2);
-//    set1->difference(set2);
-
-	Set *set3 = Set::unite(set1, set2);
-	set3->show();
-
-//    set1->show();
 }

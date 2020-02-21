@@ -103,7 +103,23 @@ public:
      * @param set2
      * @return объединенный набор
      */
-    static Set * unite (Set *set1, Set *set2);
+    static Set * unite(Set *set1, Set *set2);
+
+	/**
+	 * Пересечение двух переданных множеств
+	 * @param set1
+	 * @param set2
+	 * @return
+	 */
+    static Set * intersection(Set *set1, Set *set2);
+
+	/**
+	 * Разность двух переданных множеств
+	 * @param set1
+	 * @param set2
+	 * @return
+	 */
+    static Set * difference(Set *set1, Set *set2);
 };
 
 
