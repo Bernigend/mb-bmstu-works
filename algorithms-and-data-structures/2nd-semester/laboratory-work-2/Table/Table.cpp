@@ -45,7 +45,7 @@ void Table::addToEnd(Key key, Value value) {
 pTableElement Table::findByKey(Key key) {
 	auto tmpElem = this->head;
 
-	while (tmpElem->next != nullptr) {
+	while (tmpElem != nullptr) {
 		if (tmpElem->key == key) {
 			return tmpElem;
 		}
@@ -60,17 +60,17 @@ pTableElement Table::findByKey(Key key) {
  * @param key
  */
 void Table::deleteByKey(Key key) {
-	TableElement* prevElem = this->head;
-	auto tmpElem  = this->head;
+	pTableElement prevElem = nullptr;
+	auto tmpElem = this->head;
 
-	while (tmpElem->next != nullptr) {
+	while (tmpElem != nullptr) {
 		if (tmpElem->key == key) {
-
 			// если найденный элемент самый первый
-			if (prevElem == this->head) {
+			if (prevElem == nullptr) {
+				tmpElem = this->head->next;
 				delete this->head;
-				this->head = tmpElem->next;
-				// если элемент находится между двумя другими
+				this->head = tmpElem;
+			// если элемент находится между двумя другими
 			} else {
 				prevElem->next = tmpElem->next;
 				delete tmpElem;
@@ -80,6 +80,7 @@ void Table::deleteByKey(Key key) {
 		}
 
 		prevElem = tmpElem;
+		tmpElem = tmpElem->next;
 	}
 }
 
