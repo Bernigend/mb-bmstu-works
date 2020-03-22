@@ -2,6 +2,8 @@
 // Created by Bernigend on 22.03.2020.
 //
 
+#include <iostream>
+#include <ctime>
 #include <string>
 
 #ifndef LABORATORY_WORK_1_DATETIME_H
@@ -23,19 +25,33 @@ protected:
     static const unsigned int MAX_YEAR = 10000;
 
     static inline void setLastError(const std::string& _lastError) {
-        DateTime::lastError = _lastError;
+        lastError = _lastError;
     }
 
 public:
-    DateTime(int _year, int _month, int _day, int _hour, int _minute, int _second) {
-        this->year  = _year;
-        this->month = _month;
-        this->day   = _day;
+    /**
+     * Конструктор класса по умолчанию
+     */
+    DateTime();
 
-        this->hour   = _hour;
-        this->minute = _minute;
-        this->second = _second;
-    }
+    /**
+     * Конструктор класса (копирование)
+     *
+     * @param _dateTime
+     */
+    DateTime(DateTime& _dateTime);
+
+    /**
+     * Конструктор класса с параметрами
+     *
+     * @param _year
+     * @param _month
+     * @param _day
+     * @param _hour
+     * @param _minute
+     * @param _second
+     */
+    DateTime(int _year, int _month, int _day, int _hour, int _minute, int _second);
 
     /**
      * Проверяет корректность значений времени
@@ -46,25 +62,13 @@ public:
      *
      * @return true, если всё верно, иначе false
      */
-    static bool isValidTime(int _hour, int _minute, int _second)
-    {
-        if (_hour < 0 || _hour > 24) {
-            setLastError("The number of hours is out of bounds");
-            return false;
-        }
+    static bool isValidTime(int _hour, int _minute, int _second);
 
-        if (_minute < 0 || _minute > 59) {
-            setLastError("The number of minutes is out of bounds");
-            return false;
-        }
-
-        if (_second < 0 || _second > 60) {
-            setLastError("The number of seconds is out of bounds");
-            return false;
-        }
-
-        return true;
-    }
+    /**
+     * Проверяет корректность данных, уже установленных в объекте класса
+     * @return
+     */
+    bool isValid();
 
     /**
      * Проверяет корректность значений времени
@@ -75,55 +79,57 @@ public:
      *
      * @return true, если всё верно, иначе false
      */
-    static bool isValidDate(int _year, int _month, int _day)
-    {
-        if (_year < 1 || _year > MAX_YEAR) {
-            setLastError("The number of year is out of bounds");
-            return false;
-        }
+    static bool isValidDate(int _year, int _month, int _day);
 
-        if (_month < 1 || _month > 12) {
-            setLastError("The number of month is out of bounds");
-            return false;
-        }
+    /**
+     * Устанавливает текущее время в объекте класса
+     */
+    void setNow();
 
-        if (_day < 1 || _day > 32) {
-            setLastError("The number of day is out of bounds");
-            return false;
-        }
+    /**
+     * Возвращает дату, установленную в объекте класса в виде строки
+     * @return
+     */
+    std::string getDate();
 
-        if ((_day == 31) && (_month == 2 || _month == 4 || _month == 6 || _month == 9 || _month == 11)) {
-            setLastError("There is no 31 date in this month");
-            return false;
-        }
+    /**
+     * Возвращает время, установленное в объекте класса в виде строки
+     * @return
+     */
+    std::string getTime();
 
-        if ((_day == 30) && (_month == 2)) {
-            setLastError("There is no 30 date in this month");
-            return false;
-        }
+    /**
+     * Вовзращает дату и время в виде строки в указанном формате
+     *
+     * Форматы:
+     * - Y - год
+     * - m - месяц с ведущим нулём
+     * - d - день с ведущим нулём
+     * - H - часы в 24-часовом формате с ведущим нулём
+     * - i - минуты с ведущим нулём
+     * - s - секунды с ведущим нулём
+     *
+     * @param format Y.m.d - H:i:s
+     *
+     * @return
+     */
+    std::string toString(std::string format = "Y.m.d H:i:s");
 
-        if ((_month == 2) && (_day == 29) && (_year % 4 != 0)) {
-            setLastError("There is no 29 date in this month");
-            return false;
-        }
+    /**
+     * Выводит дату и время в переданный поток вывода
+     *
+     * @param stream
+     */
+    void print(std::ostream& stream);
 
-        if ((_month == 2) && (_day == 29) && (_year % 400 == 0)) {
-            setLastError("There is no 29 date in this month");
-            return true;
-        }
-
-        if ((_month == 2) && (_day == 29) && (_year % 100 == 0)) {
-            setLastError("There is no 29 date in this month");
-            return false;
-        }
-
-        if ((_month == 2) && (_day == 29) && (_year % 4 == 0)) {
-            setLastError("There is no 29 date in this month");
-            return true;
-        }
-
-        return true;
-    }
+    /**
+     * Возвращает временной тип данных time_t
+     *
+     * @param rawString
+     *
+     * @return
+     */
+    static time_t fromString(const std::string& rawString);
 
     // // //
     // Setters
@@ -182,7 +188,7 @@ public:
     }
 
     inline static const std::string &getLastError() {
-        return DateTime::lastError;
+        return lastError;
     }
 };
 
