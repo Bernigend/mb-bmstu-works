@@ -79,21 +79,14 @@ bool DateTime::isValid()
 bool DateTime::isValidTime(int _hour, int _minute, int _second)
 {
     if (_hour < 0 || _hour > 24) {
-        setLastError("The number of hours is out of bounds");
         return false;
     }
 
     if (_minute < 0 || _minute > 59) {
-        setLastError("The number of minutes is out of bounds");
         return false;
     }
 
-    if (_second < 0 || _second > 60) {
-        setLastError("The number of seconds is out of bounds");
-        return false;
-    }
-
-    return true;
+    return !(_second < 0 || _second > 60);
 }
 
 /**
@@ -107,48 +100,39 @@ bool DateTime::isValidTime(int _hour, int _minute, int _second)
  */
 bool DateTime::isValidDate(int _year, int _month, int _day)
 {
-    if (_year < 1 || _year > MAX_YEAR) {
-        setLastError("The number of year is out of bounds");
+    if (_year < 1) {
         return false;
     }
 
     if (_month < 1 || _month > 12) {
-        setLastError("The number of month is out of bounds");
         return false;
     }
 
     if (_day < 1 || _day > 32) {
-        setLastError("The number of day is out of bounds");
         return false;
     }
 
     if ((_day == 31) && (_month == 2 || _month == 4 || _month == 6 || _month == 9 || _month == 11)) {
-        setLastError("There is no 31 date in this month");
         return false;
     }
 
     if ((_day == 30) && (_month == 2)) {
-        setLastError("There is no 30 date in this month");
         return false;
     }
 
     if ((_month == 2) && (_day == 29) && (_year % 4 != 0)) {
-        setLastError("There is no 29 date in this month");
         return false;
     }
 
     if ((_month == 2) && (_day == 29) && (_year % 400 == 0)) {
-        setLastError("There is no 29 date in this month");
         return true;
     }
 
     if ((_month == 2) && (_day == 29) && (_year % 100 == 0)) {
-        setLastError("There is no 29 date in this month");
         return false;
     }
 
     if ((_month == 2) && (_day == 29) && (_year % 4 == 0)) {
-        setLastError("There is no 29 date in this month");
         return true;
     }
 
@@ -178,8 +162,8 @@ void DateTime::setNow()
  */
 std::string DateTime::getDate()
 {
-    std::string _return = std::to_string(this->year) + "." + std::to_string(this->month) + "." + std::to_string(this->day);
-    return _return;
+//    std::string _return = std::to_string(this->year) + "." + std::to_string(this->month) + "." + std::to_string(this->day);
+    return toString("Y.m.d");
 }
 
 /**
@@ -188,8 +172,8 @@ std::string DateTime::getDate()
  */
 std::string DateTime::getTime()
 {
-    std::string _return = std::to_string(this->hour) + "." + std::to_string(this->minute) + "." + std::to_string(this->second);
-    return _return;
+//    std::string _return = std::to_string(this->hour) + ":" + std::to_string(this->minute) + ":" + std::to_string(this->second);
+    return toString("H:i:s");
 }
 
 /**

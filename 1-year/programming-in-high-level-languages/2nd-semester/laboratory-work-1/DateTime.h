@@ -20,14 +20,6 @@ protected:
     int minute;
     int second;
 
-    static std::string lastError;
-
-    static const unsigned int MAX_YEAR = 10000;
-
-    static inline void setLastError(const std::string& _lastError) {
-        lastError = _lastError;
-    }
-
 public:
     /**
      * Конструктор класса по умолчанию
@@ -54,6 +46,12 @@ public:
     DateTime(int _year, int _month, int _day, int _hour, int _minute, int _second);
 
     /**
+     * Проверяет корректность данных, уже установленных в объекте класса
+     * @return
+     */
+    bool isValid();
+
+    /**
      * Проверяет корректность значений времени
      *
      * @param _hour
@@ -63,12 +61,6 @@ public:
      * @return true, если всё верно, иначе false
      */
     static bool isValidTime(int _hour, int _minute, int _second);
-
-    /**
-     * Проверяет корректность данных, уже установленных в объекте класса
-     * @return
-     */
-    bool isValid();
 
     /**
      * Проверяет корректность значений времени
@@ -185,10 +177,6 @@ public:
 
     inline int getSecond() const {
         return this->second;
-    }
-
-    inline static const std::string &getLastError() {
-        return lastError;
     }
 };
 
