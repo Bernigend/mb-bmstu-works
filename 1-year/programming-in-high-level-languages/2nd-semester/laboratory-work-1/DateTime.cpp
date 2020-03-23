@@ -17,11 +17,7 @@ DateTime::DateTime()
     this->setNow();
 }
 
-/**
- * Конструктор класса (копирование)
- *
- * @param _dateTime
- */
+
 DateTime::DateTime(DateTime& _dateTime)
 {
     this->year  = _dateTime.getYear();
@@ -33,16 +29,7 @@ DateTime::DateTime(DateTime& _dateTime)
     this->second = _dateTime.getSecond();
 }
 
-/**
- * Конструктор класса с параметрами
- *
- * @param _year
- * @param _month
- * @param _day
- * @param _hour
- * @param _minute
- * @param _second
- */
+
 DateTime::DateTime(int _year, int _month, int _day, int _hour, int _minute, int _second)
 {
     this->year  = _year;
@@ -54,10 +41,7 @@ DateTime::DateTime(int _year, int _month, int _day, int _hour, int _minute, int 
     this->second = _second;
 }
 
-/**
- * Проверяет корректность данных, уже установленных в объекте класса
- * @return
- */
+
 bool DateTime::isValid()
 {
     if (!isValidDate(this->year, this->month, this->day)) {
@@ -67,15 +51,7 @@ bool DateTime::isValid()
     return isValidTime(this->hour, this->minute, this->second);
 }
 
-/**
- * Проверяет корректность значений времени
- *
- * @param _hour
- * @param _minute
- * @param _second
- *
- * @return true, если всё верно, иначе false
- */
+
 bool DateTime::isValidTime(int _hour, int _minute, int _second)
 {
     if (_hour < 0 || _hour > 24) {
@@ -89,15 +65,7 @@ bool DateTime::isValidTime(int _hour, int _minute, int _second)
     return !(_second < 0 || _second > 60);
 }
 
-/**
- * Проверяет корректность значений времени
- *
- * @param _hour
- * @param _minute
- * @param _second
- *
- * @return true, если всё верно, иначе false
- */
+
 bool DateTime::isValidDate(int _year, int _month, int _day)
 {
     if (_year < 1) {
@@ -139,9 +107,7 @@ bool DateTime::isValidDate(int _year, int _month, int _day)
     return true;
 }
 
-/**
- * Устанавливает текущее время в объекте класса
- */
+
 void DateTime::setNow()
 {
     time_t rawTime = time(nullptr);
@@ -156,42 +122,20 @@ void DateTime::setNow()
     this->second = timeInfo->tm_sec;
 }
 
-/**
- * Возвращает дату, установленную в объекте класса в виде строки
- * @return
- */
+
 std::string DateTime::getDate()
 {
-//    std::string _return = std::to_string(this->year) + "." + std::to_string(this->month) + "." + std::to_string(this->day);
     return toString("Y.m.d");
 }
 
-/**
- * Возвращает время, установленное в объекте класса в виде строки
- * @return
- */
+
 std::string DateTime::getTime()
 {
-//    std::string _return = std::to_string(this->hour) + ":" + std::to_string(this->minute) + ":" + std::to_string(this->second);
     return toString("H:i:s");
 }
 
-/**
- * Вовзращает дату и время в виде строки в указанном формате
- *
- * Форматы:
- * - Y - год
- * - m - месяц с ведущим нулём
- * - d - день с ведущим нулём
- * - H - часы в 24-часовом формате с ведущим нулём
- * - i - минуты с ведущим нулём
- * - s - секунды с ведущим нулём
- *
- * @param format Y.m.d - H:i:s
- *
- * @return
- */
-std::string DateTime::toString(std::string format)
+
+std::string DateTime::toString(std::string format = "Y.m.d H:i:s")
 {
     int position;
     std::string tmp;
@@ -256,37 +200,20 @@ std::string DateTime::toString(std::string format)
     return format;
 }
 
-/**
- * Выводит дату и время в переданный поток вывода
- *
- * @param stream
- */
+
 void DateTime::print(std::ostream& stream)
 {
     stream << toString();
 }
 
-/**
- * Возвращает временной тип данных time_t
- *
- * @param rawString
- *
- * @return
- */
-time_t DateTime::fromString(const std::string& rawString)
+
+DateTime DateTime::fromString(const std::string& rawString)
 {
     int yy, month, dd, hh, mm, ss;
-    tm whenStart{};
     const char *zStart = rawString.c_str();
 
     scanf(zStart, "%d.%d.%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
-    whenStart.tm_year = yy - 1900;
-    whenStart.tm_mon = month - 1;
-    whenStart.tm_mday = dd;
-    whenStart.tm_hour = hh;
-    whenStart.tm_min = mm;
-    whenStart.tm_sec = ss;
-    whenStart.tm_isdst = -1;
 
-    return mktime(&whenStart);
+    DateTime newDateTime(yy, month, dd, hh, mm, ss);
+    return newDateTime;
 }
