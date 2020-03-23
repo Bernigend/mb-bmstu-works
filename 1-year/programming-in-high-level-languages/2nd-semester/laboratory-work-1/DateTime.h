@@ -63,11 +63,11 @@ public:
     static bool isValidTime(int _hour, int _minute, int _second);
 
     /**
-     * Проверяет корректность значений времени
+     * Проверяет корректность значений даты
      *
-     * @param _hour
-     * @param _minute
-     * @param _second
+     * @param _year
+     * @param _month
+     * @param _day
      *
      * @return true, если всё верно, иначе false
      */
@@ -105,7 +105,7 @@ public:
      *
      * @return
      */
-    std::string toString(std::string format = "Y.m.d H:i:s");
+    std::string toString(std::string format);
 
     /**
      * Выводит дату и время в переданный поток вывода
@@ -115,70 +115,130 @@ public:
     void print(std::ostream& stream);
 
     /**
-     * Возвращает временной тип данных time_t
+     * Возвращает инициализированный объект класса данными из строки
      *
      * @param rawString
      *
      * @return
      */
-    static time_t fromString(const std::string& rawString);
+    static DateTime fromString(const std::string& rawString);
 
     // // //
     // Setters
     // // //
 
-    inline void setYear(int _year) {
-        this->year = _year;
-    }
+    inline bool setYear(int _year);
 
-    inline void setMonth(int _month) {
-        this->month = _month;
-    }
+    inline bool setMonth(int _month);
 
-    inline void setDay(int _day) {
-        this->day = _day;
-    }
+    inline bool setDay(int _day);
 
-    inline void setHour(int _hour) {
-        this->hour = _hour;
-    }
+    inline bool setHour(int _hour);
 
-    inline void setMinute(int _minute) {
-        this->minute = _minute;
-    }
+    inline bool setMinute(int _minute);
 
-    inline void setSecond(int _second) {
-        this->second = _second;
-    }
+    inline bool setSecond(int _second);
 
     // // //
     // Getters
     // // //
 
-    inline int getYear() const {
-        return this->year;
-    }
+    inline int getYear() const;
 
-    inline int getMonth() const {
-        return this->month;
-    }
+    inline int getMonth() const;
 
-    inline int getDay() const {
-        return this->day;
-    }
+    inline int getDay() const;
 
-    inline int getHour() const {
-        return this->hour;
-    }
+    inline int getHour() const;
 
-    inline int getMinute() const {
-        return this->minute;
-    }
+    inline int getMinute() const;
 
-    inline int getSecond() const {
-        return this->second;
-    }
+    inline int getSecond() const;
 };
+
+
+bool DateTime::setYear(int _year) {
+    if (!DateTime::isValidDate(_year, this->month, this->day)) {
+        return false;
+    }
+    this->year = _year;
+    return true;
+}
+
+
+bool DateTime::setMonth(int _month) {
+    if (!DateTime::isValidDate(this->year, _month, this->day)) {
+        return false;
+    }
+    this->month = _month;
+    return true;
+}
+
+
+bool DateTime::setDay(int _day) {
+    if (!DateTime::isValidDate(this->year, this->month, _day)) {
+        return false;
+    }
+    this->day = _day;
+    return true;
+}
+
+
+bool DateTime::setHour(int _hour) {
+    if (!DateTime::isValidTime(_hour, this->minute, this->second)) {
+        return false;
+    }
+    this->hour = _hour;
+    return true;
+}
+
+
+bool DateTime::setMinute(int _minute) {
+    if (!DateTime::isValidTime(this->hour, _minute, this->second)) {
+        return false;
+    }
+    this->minute = _minute;
+    return true;
+}
+
+
+bool DateTime::setSecond(int _second) {
+    if (!DateTime::isValidTime(this->hour, this->minute, _second)) {
+        return false;
+    }
+    this->second = _second;
+    return true;
+}
+
+
+int DateTime::getYear() const {
+    return this->year;
+}
+
+
+int DateTime::getMonth() const {
+    return this->month;
+}
+
+
+int DateTime::getDay() const {
+    return this->day;
+}
+
+
+int DateTime::getHour() const {
+    return this->hour;
+}
+
+
+int DateTime::getMinute() const {
+    return this->minute;
+}
+
+
+int DateTime::getSecond() const {
+    return this->second;
+}
 
 
 #endif //LABORATORY_WORK_1_DATETIME_H
