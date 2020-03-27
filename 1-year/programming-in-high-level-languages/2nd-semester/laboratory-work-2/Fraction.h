@@ -78,6 +78,15 @@ public:
     Fraction operator+ (const Fraction& _fraction);
 
     /**
+     * Обрабатывает сложение целого числа и объекта класса
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator+ (int _num);
+
+    /**
      * Обрабатывает разность двух объектов класса
      *
      * @param _fraction
@@ -85,6 +94,15 @@ public:
      * @return
      */
     Fraction operator- (const Fraction& _fraction);
+
+    /**
+     * Обрабатывает разность целого числа и объекта класса
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator- (int _num);
 
     /**
      * Обрабатывает произведение двух объектов класса
@@ -96,6 +114,15 @@ public:
     Fraction operator* (const Fraction& _fraction);
 
     /**
+     * Обрабатывает произведение целого числа и объекта класса
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator* (int _num);
+
+    /**
      * Обрабатывает частное двух объектов класса
      *
      * @param _fraction
@@ -103,6 +130,15 @@ public:
      * @return
      */
     Fraction operator/ (const Fraction& _fraction);
+
+    /**
+     * Обрабатывает частное целого числа и объекта класса
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator/ (int _num);
 
     /**
      * Обрабатывает сравнение двух объектов класса

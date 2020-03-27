@@ -12,5 +12,9 @@ int main() {
 
     std::cout << (double)(_fraction1 + _fraction2) << std::endl;
 
+    Fraction F(1,2), G;
+    G = F + 1;
+    std::cout << G << std::endl;
+
     return 0;
 }
