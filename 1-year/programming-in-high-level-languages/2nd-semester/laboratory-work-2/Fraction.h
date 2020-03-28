@@ -41,6 +41,12 @@ public:
     Fraction(const Fraction& _fraction);
 
     /**
+     * Конструктор с параметром для целого числа
+     * @param _numerator
+     */
+    explicit Fraction(int _numerator);
+
+    /**
      * Конструктор с параметрами
      *
      * @param _numerator
@@ -87,6 +93,31 @@ public:
     Fraction operator+ (int _num);
 
     /**
+     * Ничего не делает
+     *
+     * @return
+     */
+    Fraction operator+ ();
+
+    /**
+     * Оператор +=
+     *
+     * @param _fraction
+     *
+     * @return
+     */
+    Fraction operator+= (const Fraction& _fraction);
+
+    /**
+     * Оператор +=
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator+= (int _num);
+
+    /**
      * Обрабатывает разность двух объектов класса
      *
      * @param _fraction
@@ -103,6 +134,31 @@ public:
      * @return
      */
     Fraction operator- (int _num);
+
+    /**
+     * Унарный минус
+     *
+     * @return
+     */
+    Fraction operator- ();
+
+    /**
+     * Оператор -=
+     *
+     * @param _fraction
+     *
+     * @return
+     */
+    Fraction operator-= (const Fraction& _fraction);
+
+    /**
+     * Оператор -=
+     *
+     * @param _num
+     *
+     * @return
+     */
+    Fraction operator-= (int _num);
 
     /**
      * Обрабатывает произведение двух объектов класса
@@ -150,6 +206,34 @@ public:
     bool operator== (const Fraction& _fraction);
 
     /**
+     * Я уже устал писать комменты
+     * @param _fraction
+     * @return
+     */
+    bool operator> (const Fraction& _fraction);
+
+    /**
+     * Я уже устал писать комменты
+     * @param _fraction
+     * @return
+     */
+    bool operator>= (const Fraction& _fraction);
+
+    /**
+     * Я уже устал писать комменты
+     * @param _fraction
+     * @return
+     */
+    bool operator< (const Fraction& _fraction);
+
+    /**
+     * Я уже устал писать комменты
+     * @param _fraction
+     * @return
+     */
+    bool operator<= (const Fraction& _fraction);
+
+    /**
      * Перегрузка оператора присваивания
      *
      * @param _fraction
@@ -182,6 +266,11 @@ public:
      */
     inline int getDenominator() const;
 };
+
+Fraction operator+ (int _num, Fraction& _fraction);
+Fraction operator- (int _num, Fraction& _fraction);
+Fraction operator* (int _num, Fraction& _fraction);
+Fraction operator/ (int _num, Fraction& _fraction);
 
 
 int Fraction::getNumerator() const {
