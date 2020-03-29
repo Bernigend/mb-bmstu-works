@@ -135,7 +135,7 @@ std::string DateTime::getTime()
 }
 
 
-std::string DateTime::toString(std::string format = "Y.m.d H:i:s")
+std::string DateTime::toString(std::string format)
 {
     int position;
     std::string tmp;

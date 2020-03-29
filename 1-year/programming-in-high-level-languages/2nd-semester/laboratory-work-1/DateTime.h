@@ -105,7 +105,7 @@ public:
      *
      * @return
      */
-    std::string toString(std::string format);
+    std::string toString(std::string format = "Y.m.d H:i:s");
 
     /**
      * Выводит дату и время в переданный поток вывода
