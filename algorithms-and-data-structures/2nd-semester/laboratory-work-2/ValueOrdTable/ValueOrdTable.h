@@ -2,16 +2,16 @@
  * Created by Bernigend on 06.03.2020.
  */
 
-#include "Table.h"
+#include "../Table/Table.h"
 
-#ifndef LAB_2_KEYORDTABLE_H
-#define LAB_2_KEYORDTABLE_H
+#ifndef LAB_2_VALUEORDTABLE_H
+#define LAB_2_VALUEORDTABLE_H
 
 
-class KeyOrdTable : public Table {
+class ValueOrdTable : public Table {
 public:
 	/**
-	 * Добавляет элемент в таблицу (сорт. по ключу)
+	 * Добавляет элемент в таблицу (сорт. по значению)
 	 * @param key
 	 * @param value
 	 */
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //LAB_2_KEYORDTABLE_H
+#endif //LAB_2_VALUEORDTABLE_H

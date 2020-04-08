@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Table.h"
-#include "KeyOrdTable.h"
-#include "ValueOrdTable.h"
+#include "Table/Table.h"
+#include "KeyOrdTable/KeyOrdTable.h"
+#include "ValueOrdTable/ValueOrdTable.h"
 
 int main() {
 	// Простая таблица
