@@ -25,5 +25,12 @@ int main() {
     DateTime dateTime4;
     std::cout << dateTime4.getDate() << " " << dateTime4.getTime();
 
+    std::cout << std::endl << std::endl;
+
+    // 5
+    DateTime dateTime5;
+    dateTime5 = DateTime::fromString("2020.8.12 12:12:12");
+    dateTime5.print(std::cout);
+
     return 0;
 }
