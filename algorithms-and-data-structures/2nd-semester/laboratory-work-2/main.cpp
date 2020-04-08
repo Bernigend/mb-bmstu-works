@@ -2,6 +2,7 @@
 #include "Table/Table.h"
 #include "KeyOrdTable/KeyOrdTable.h"
 #include "ValueOrdTable/ValueOrdTable.h"
+#include "FrOrdTable/FrOrdTable.h"
 
 int main() {
 	// Простая таблица
@@ -42,4 +43,22 @@ int main() {
 
 	std::cout << "Table sorted by value:" << std::endl;
 	valueOrdTable->print();
+    std::cout << std::endl;
+
+	// Таблица, отсортированная по частоте
+	auto frOrdTable = new FrOrdTable;
+
+    frOrdTable->addElement(5, 4);
+    frOrdTable->addElement(7, 10);
+    frOrdTable->addElement(1, 6);
+
+	std::cout << "Frequency-sorted table:" << std::endl;
+	std::cout << " - Sample:" << std::endl;
+    frOrdTable->print();
+
+    frOrdTable->findByKey(1);
+    frOrdTable->findByKey(7);
+
+    std::cout << " - Sorted:" << std::endl;
+    frOrdTable->print();
 }

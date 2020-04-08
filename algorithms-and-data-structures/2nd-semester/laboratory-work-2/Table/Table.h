@@ -34,7 +34,7 @@ public:
 	 * @param key
 	 * @return
 	 */
-	pTableElement findByKey(Key key);
+    virtual pTableElement findByKey(Key key);
 
 	/**
 	 * Удаляет элемент по ключу
