@@ -214,13 +214,6 @@ DateTime DateTime::fromString(const std::string& rawString)
 
     sscanf(zStart, "%d.%d.%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
 
-//    std::cout << yy << std::endl;
-//    std::cout << month << std::endl;
-//    std::cout << dd << std::endl;
-//    std::cout << hh << std::endl;
-//    std::cout << mm << std::endl;
-//    std::cout << ss << std::endl;
-
     DateTime newDateTime(yy, month, dd, hh, mm, ss);
     return newDateTime;
 }
