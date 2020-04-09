@@ -20,18 +20,22 @@ public:
     Complex(const Complex&);
 
     // оператор сложения
-    friend Complex operator+ (const Complex& complex1, const Complex& complex2);
+    friend Complex operator+ (const Complex&, const Complex&);
+    Complex operator+ (const Complex&);
     // оператор вычитания
-    friend Complex operator- (const Complex& complex1, const Complex& complex2);
+    friend Complex operator- (const Complex&, const Complex&);
+    Complex operator- (const Complex&);
     // оператор умножения
-    friend Complex operator* (const Complex& complex1, const Complex& complex2);
+    friend Complex operator* (const Complex&, const Complex&);
+    Complex operator* (const Complex&);
     // оператор деления
-    friend Complex operator/ (const Complex& complex1, const Complex& complex2);
+    friend Complex operator/ (const Complex&, const Complex&);
+    Complex operator/ (const Complex&);
 
     // оператор вывода
-    friend std::ostream& operator<< (std::ostream& stream, const Complex& complex);
+    friend std::ostream& operator<< (std::ostream&, const Complex&);
     // оператор ввода
-    friend std::istream& operator>> (std::istream& stream, Complex& complex);
+    friend std::istream& operator>> (std::istream&, Complex&);
 
     inline double getRe() const;
     inline double getIm() const;

@@ -15,10 +15,20 @@ Complex operator+ (const Complex& complex1, const Complex& complex2)
     return Complex {complex1.re + complex2.re, complex1.im + complex2.im};
 }
 
+Complex Complex::operator+ (const Complex& complex)
+{
+    return (*this) + complex;
+}
+
 // оператор вычитания
 Complex operator- (const Complex& complex1, const Complex& complex2)
 {
     return Complex {complex1.re - complex2.re, complex1.im - complex2.im};
+}
+
+Complex Complex::operator- (const Complex& complex)
+{
+    return (*this) - complex;
 }
 
 // оператор умножения
@@ -30,6 +40,11 @@ Complex operator* (const Complex& complex1, const Complex& complex2)
     };
 }
 
+Complex Complex::operator* (const Complex& complex)
+{
+    return (*this) * complex;
+}
+
 // оператор деления
 Complex operator/ (const Complex& complex1, const Complex& complex2)
 {
@@ -38,6 +53,11 @@ Complex operator/ (const Complex& complex1, const Complex& complex2)
             ((complex1.re * complex2.re + complex1.im * complex2.im) / r),
             ((complex1.im * complex2.re - complex1.re * complex2.im) / r)
     };
+}
+
+Complex Complex::operator/ (const Complex& complex)
+{
+    return (*this) / complex;
 }
 
 // оператор вывода
