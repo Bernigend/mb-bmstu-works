@@ -61,6 +61,15 @@ int main() {
 
     std::cout << " - Without first element:" << std::endl;
     std::cout << dack << std::endl;
+    std::cout << std::endl;
+
+    // -------------------- //
+
+    Dack dack2;
+    dack2.add(3);
+    dack2.getEnd();
+    dack2.add(4);
+    std::cout << dack2;
 
     return 0;
 }

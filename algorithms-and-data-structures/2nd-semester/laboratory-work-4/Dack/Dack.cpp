@@ -27,6 +27,7 @@ pElement Dack::getEnd()
 
     if (temp->next == nullptr) {
         delete this->head;
+        this->head = nullptr;
         return temp;
     }
 
