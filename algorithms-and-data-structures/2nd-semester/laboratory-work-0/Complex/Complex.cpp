@@ -20,54 +20,34 @@ Complex::Complex(const Complex& complex)
 }
 
 // оператор сложения
-Complex operator+ (const Complex& complex1, const Complex& complex2)
-{
-    return Complex {complex1.re + complex2.re, complex1.im + complex2.im};
-}
-
 Complex Complex::operator+ (const Complex& complex)
 {
-    return ::operator+(*this, complex);
+    return Complex {this->re + complex.re, this->im + complex.im};
 }
 
 // оператор вычитания
-Complex operator- (const Complex& complex1, const Complex& complex2)
-{
-    return Complex {complex1.re - complex2.re, complex1.im - complex2.im};
-}
-
 Complex Complex::operator- (const Complex& complex)
 {
-    return ::operator-(*this, complex);
+    return Complex {this->re - complex.re, this->im - complex.im};
 }
 
 // оператор умножения
-Complex operator* (const Complex& complex1, const Complex& complex2)
-{
-    return Complex {
-        complex1.re * complex2.re - complex1.im * complex2.im,
-        complex1.re * complex2.im + complex1.im * complex2.re
-    };
-}
-
 Complex Complex::operator* (const Complex& complex)
 {
-    return ::operator*(*this, complex);
+    return Complex {
+        this->re * complex.re - this->im * complex.im,
+        this->re * complex.im + this->im * complex.re
+    };
 }
 
 // оператор деления
-Complex operator/ (const Complex& complex1, const Complex& complex2)
-{
-    double r = complex2.re * complex2.re + complex2.im * complex2.im;
-    return Complex{
-        ((complex1.re * complex2.re + complex1.im * complex2.im) / r),
-        ((complex1.im * complex2.re - complex1.re * complex2.im) / r)
-    };
-}
-
 Complex Complex::operator/ (const Complex& complex)
 {
-    return ::operator/(*this, complex);
+    double r = complex.re * complex.re + complex.im * complex.im;
+    return Complex {
+        ((this->re * complex.re + this->im * complex.im) / r),
+        ((this->im * complex.re - this->re * complex.im) / r)
+    };
 }
 
 // оператор вывода

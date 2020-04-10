@@ -20,16 +20,12 @@ public:
     Complex(const Complex&);
 
     // оператор сложения
-    friend Complex operator+ (const Complex&, const Complex&);
     Complex operator+ (const Complex&);
     // оператор вычитания
-    friend Complex operator- (const Complex&, const Complex&);
     Complex operator- (const Complex&);
     // оператор умножения
-    friend Complex operator* (const Complex&, const Complex&);
     Complex operator* (const Complex&);
     // оператор деления
-    friend Complex operator/ (const Complex&, const Complex&);
     Complex operator/ (const Complex&);
 
     // оператор вывода

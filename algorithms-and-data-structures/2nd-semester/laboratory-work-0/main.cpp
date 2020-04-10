@@ -8,7 +8,6 @@ int main() {
     // сложение
     std::cout << "+" << std::endl;
     std::cout << (_complex + _complex) << std::endl;
-    std::cout << (5 + _complex) << std::endl;
     std::cout << (_complex + 5) << std::endl;
 
     std::cout << std::endl;
@@ -16,7 +15,6 @@ int main() {
     // вычитание
     std::cout << "-" << std::endl;
     std::cout << (_complex - _complex) << std::endl;
-    std::cout << (5 - _complex) << std::endl;
     std::cout << (_complex - 5) << std::endl;
 
     std::cout << std::endl;
@@ -24,7 +22,6 @@ int main() {
     // умножение
     std::cout << "*" << std::endl;
     std::cout << (_complex * _complex) << std::endl;
-    std::cout << (5 * _complex) << std::endl;
     std::cout << (_complex * 5) << std::endl;
 
     std::cout << std::endl;
@@ -32,7 +29,6 @@ int main() {
     // деление
     std::cout << "/" << std::endl;
     std::cout << (_complex / _complex) << std::endl;
-    std::cout << (5 / _complex) << std::endl;
     std::cout << (_complex / 5) << std::endl;
 
     std::cout << std::endl;
