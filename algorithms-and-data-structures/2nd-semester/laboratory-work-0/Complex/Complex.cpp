@@ -5,9 +5,19 @@
 #include "Complex.h"
 
 // конструктор с параметрами по умолчанию
-Complex::Complex(double _re, double _im) : re{_re}, im{_im} {}
+// Complex::Complex(double _re, double _im) : re{_re}, im{_im} {}
+Complex::Complex(double _re, double _im)
+{
+    this->re = _re;
+    this->im = _im;
+}
 // конструктор копирования
-Complex::Complex(const Complex& complex) : re{complex.getRe()}, im{complex.getIm()} {}
+// Complex::Complex(const Complex& complex) : re{complex.getRe()}, im{complex.getIm()} {}
+Complex::Complex(const Complex& complex)
+{
+    this->re = complex.getRe();
+    this->im = complex.getIm();
+}
 
 // оператор сложения
 Complex operator+ (const Complex& complex1, const Complex& complex2)
@@ -17,7 +27,7 @@ Complex operator+ (const Complex& complex1, const Complex& complex2)
 
 Complex Complex::operator+ (const Complex& complex)
 {
-    return (*this) + complex;
+    return ::operator+(*this, complex);
 }
 
 // оператор вычитания
@@ -28,21 +38,21 @@ Complex operator- (const Complex& complex1, const Complex& complex2)
 
 Complex Complex::operator- (const Complex& complex)
 {
-    return (*this) - complex;
+    return ::operator-(*this, complex);
 }
 
 // оператор умножения
 Complex operator* (const Complex& complex1, const Complex& complex2)
 {
     return Complex {
-            complex1.re * complex2.re - complex1.im * complex2.im,
-            complex1.re * complex2.im + complex1.im * complex2.re
+        complex1.re * complex2.re - complex1.im * complex2.im,
+        complex1.re * complex2.im + complex1.im * complex2.re
     };
 }
 
 Complex Complex::operator* (const Complex& complex)
 {
-    return (*this) * complex;
+    return ::operator*(*this, complex);
 }
 
 // оператор деления
@@ -50,14 +60,14 @@ Complex operator/ (const Complex& complex1, const Complex& complex2)
 {
     double r = complex2.re * complex2.re + complex2.im * complex2.im;
     return Complex{
-            ((complex1.re * complex2.re + complex1.im * complex2.im) / r),
-            ((complex1.im * complex2.re - complex1.re * complex2.im) / r)
+        ((complex1.re * complex2.re + complex1.im * complex2.im) / r),
+        ((complex1.im * complex2.re - complex1.re * complex2.im) / r)
     };
 }
 
 Complex Complex::operator/ (const Complex& complex)
 {
-    return (*this) / complex;
+    return ::operator/(*this, complex);
 }
 
 // оператор вывода
