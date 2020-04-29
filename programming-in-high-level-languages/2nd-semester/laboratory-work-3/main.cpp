@@ -15,8 +15,8 @@ int main() {
 	Polynomial polynomial2 = Polynomial(polynomial1);
 
 	std::cout << polynomial2[2] << std::endl;
-	polynomial2.at(2) = 6;
-	std::cout << polynomial2[2] << std::endl;
+	polynomial2[2] = 6;
+	std::cout << polynomial2.at(2) << std::endl;
 	std::cout << "2. " << polynomial2;
 	std::cout << std::endl;
 	std::cout << polynomial2.calculate(2) << std::endl;
@@ -62,6 +62,16 @@ int main() {
 	polynomial4 = polynomial3 * polynomial1;
 	std::cout << polynomial4;
 	std::cout << std::endl;
+	std::cout << std::endl;
+
+	// --- //
+
+	polynomial4 = polynomial3 / polynomial1;
+	std::cout << polynomial4;
+	std::cout << std::endl;
+
+	polynomial4 = polynomial3 % polynomial1;
+	std::cout << polynomial4;
 	std::cout << std::endl;
 
 	return 0;

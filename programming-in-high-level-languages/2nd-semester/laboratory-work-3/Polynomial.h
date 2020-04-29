@@ -6,7 +6,6 @@
 #define LABORATORY_WORK_3_POLYNOMIAL_H
 
 
-#include <cmath>
 #include <iostream>
 
 class Polynomial {
@@ -14,7 +13,7 @@ protected:
 	// степень полинома
 	unsigned int degree = 0;
 	// коэффициенты полинома
-	double *coefficient = new double[1] {0.0};
+	double* coefficient = nullptr;
 
 public:
 	// конструктор по умолчанию
@@ -32,16 +31,21 @@ public:
 	Polynomial operator+ (const Polynomial&);
 	Polynomial operator- (const Polynomial&);
 	Polynomial operator* (const Polynomial&);
+	Polynomial operator/ (Polynomial& other);
+	Polynomial operator% (Polynomial& other);
+
+	// не спрашивайте как и почему
+	// взято из http://jean-pierre.moreau.pagesperso-orange.fr/c_polynoms.html
+	// адаптировано под мой класс
+	// как иначе реализовать метод не знаю, хоть расстреляйте
+	static bool DivPolynomial(Polynomial *P, Polynomial *Q, Polynomial *H, Polynomial *R);
 
 	// перегрузка оператора []
 	double& operator[] (unsigned int);
-
-	// то же самое, что и []
-	double& at(unsigned int);
+	double at(unsigned int);
 
 	// оператор вывода
 	friend std::ostream& operator<< (std::ostream&, const Polynomial&);
-
 	// оператор ввода
 	friend std::istream& operator>> (std::istream&, Polynomial&);
 };
