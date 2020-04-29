@@ -32,6 +32,7 @@ int main() {
 	// ---------------------------- //
 
 	Polynomial polynomial4;
+	Polynomial polynomial5;
 
 	polynomial4 = polynomial1 + polynomial3;
 	std::cout << polynomial4;
@@ -39,6 +40,11 @@ int main() {
 
 	polynomial4 = polynomial3 + polynomial1;
 	std::cout << polynomial4;
+	std::cout << std::endl;
+
+	polynomial5  = polynomial1;
+	polynomial5 += polynomial3;
+	std::cout << polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
@@ -51,6 +57,11 @@ int main() {
 	polynomial4 = polynomial3 - polynomial1;
 	std::cout << polynomial4;
 	std::cout << std::endl;
+
+	polynomial5  = polynomial1;
+	polynomial5 -= polynomial3;
+	std::cout << polynomial5;
+	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
@@ -62,6 +73,11 @@ int main() {
 	polynomial4 = polynomial3 * polynomial1;
 	std::cout << polynomial4;
 	std::cout << std::endl;
+
+	polynomial5  = polynomial1;
+	polynomial5 *= polynomial3;
+	std::cout << polynomial5;
+	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
@@ -70,8 +86,22 @@ int main() {
 	std::cout << polynomial4;
 	std::cout << std::endl;
 
+	polynomial5  = polynomial3;
+	polynomial5 /= polynomial1;
+	std::cout << polynomial5;
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	// --- //
+
 	polynomial4 = polynomial3 % polynomial1;
 	std::cout << polynomial4;
+	std::cout << std::endl;
+
+	polynomial5  = polynomial3;
+	polynomial5 %= polynomial1;
+	std::cout << polynomial5;
+	std::cout << std::endl;
 	std::cout << std::endl;
 
 	return 0;
