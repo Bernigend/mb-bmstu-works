@@ -124,6 +124,31 @@ Polynomial Polynomial::operator% (Polynomial& other)
 	return *R;
 }
 
+Polynomial Polynomial::operator+=(const Polynomial& polynomial)
+{
+	return *this + polynomial;
+}
+
+Polynomial Polynomial::operator-=(const Polynomial& polynomial)
+{
+	return *this - polynomial;
+}
+
+Polynomial Polynomial::operator*=(const Polynomial& polynomial)
+{
+	return *this * polynomial;
+}
+
+Polynomial Polynomial::operator/=(Polynomial& polynomial)
+{
+	return *this / polynomial;
+}
+
+Polynomial Polynomial::operator%=(Polynomial& polynomial)
+{
+	return *this % polynomial;
+}
+
 bool Polynomial::DivPolynomial(Polynomial *P, Polynomial *Q, Polynomial *H, Polynomial *R) {
 	int i,j;
 	double u;

@@ -31,8 +31,14 @@ public:
 	Polynomial operator+ (const Polynomial&);
 	Polynomial operator- (const Polynomial&);
 	Polynomial operator* (const Polynomial&);
-	Polynomial operator/ (Polynomial& other);
-	Polynomial operator% (Polynomial& other);
+	Polynomial operator/ (Polynomial&);
+	Polynomial operator% (Polynomial&);
+
+	Polynomial operator+= (const Polynomial&);
+	Polynomial operator-= (const Polynomial&);
+	Polynomial operator*= (const Polynomial&);
+	Polynomial operator/= (Polynomial&);
+	Polynomial operator%= (Polynomial&);
 
 	// не спрашивайте как и почему
 	// взято из http://jean-pierre.moreau.pagesperso-orange.fr/c_polynoms.html
