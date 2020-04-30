@@ -3,8 +3,7 @@
 
 int main() {
 
-	double coefficients[3] {1, 2, 3};
-	Polynomial polynomial1 = Polynomial(2, coefficients);
+	Polynomial polynomial1 = Polynomial(2, new double[3] {1, 2, 3});
 
 	std::cout << "1. " << polynomial1;
 	std::cout << std::endl;
@@ -35,72 +34,72 @@ int main() {
 	Polynomial polynomial5;
 
 	polynomial4 = polynomial1 + polynomial3;
-	std::cout << polynomial4;
+	std::cout << " + " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial4 = polynomial3 + polynomial1;
-	std::cout << polynomial4;
+	std::cout << " + " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial5  = polynomial1;
 	polynomial5 += polynomial3;
-	std::cout << polynomial5;
+	std::cout << "=+ " << polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
 
 	polynomial4 = polynomial1 - polynomial3;
-	std::cout << polynomial4;
+	std::cout << " - " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial4 = polynomial3 - polynomial1;
-	std::cout << polynomial4;
+	std::cout << " - " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial5  = polynomial1;
 	polynomial5 -= polynomial3;
-	std::cout << polynomial5;
+	std::cout << "-= " <<  polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
 
 	polynomial4 = polynomial1 * polynomial3;
-	std::cout << polynomial4;
+	std::cout << " * " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial4 = polynomial3 * polynomial1;
-	std::cout << polynomial4;
+	std::cout << " * " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial5  = polynomial1;
 	polynomial5 *= polynomial3;
-	std::cout << polynomial5;
+	std::cout << "*= " << polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
 
 	polynomial4 = polynomial3 / polynomial1;
-	std::cout << polynomial4;
+	std::cout << " / " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial5  = polynomial3;
 	polynomial5 /= polynomial1;
-	std::cout << polynomial5;
+	std::cout << "/= " << polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 	// --- //
 
 	polynomial4 = polynomial3 % polynomial1;
-	std::cout << polynomial4;
+	std::cout << " % " << polynomial4;
 	std::cout << std::endl;
 
 	polynomial5  = polynomial3;
 	polynomial5 %= polynomial1;
-	std::cout << polynomial5;
+	std::cout << "%= " << polynomial5;
 	std::cout << std::endl;
 	std::cout << std::endl;
 

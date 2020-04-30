@@ -228,11 +228,15 @@ std::ostream& operator<< (std::ostream& ostream, const Polynomial& polynomial)
 
 	for (int i = _degree; i >= 0; i--) {
 		double _coefficient = polynomial.coefficient[_degree - i];
+
+		if (_coefficient == 0) continue;
+
 		if (i < _degree) {
 			ostream << ((_coefficient > 0) ? " + " : " - ");
 		}
 		ostream << ((_coefficient < 0) ? -_coefficient : _coefficient);
-		ostream << "x^" << i;
+
+		if (i != 0) ostream << "x^" << i;
 	}
 
 	return ostream;
