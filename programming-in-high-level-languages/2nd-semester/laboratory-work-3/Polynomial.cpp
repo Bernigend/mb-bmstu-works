@@ -1,3 +1,7 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma clang diagnostic ignored "-Wunknown-pragmas"
+#pragma ide diagnostic ignored "bugprone-narrowing-conversions"
 /**
  * Created by Bernigend on 28.04.2020.
  */
@@ -47,11 +51,16 @@ Polynomial Polynomial::operator+ (const Polynomial& polynomial)
 {
 	Polynomial* result;
 
-	if (this->degree >= polynomial.degree) {
+	if (this->degree > polynomial.degree) {
 		result = new Polynomial(this->degree, this->coefficient);
 		unsigned int tmp = 0;
 		for (int i = this->degree - polynomial.degree; i - 1 <= polynomial.degree; i++) {
 			result->coefficient[i] = result->coefficient[i] + polynomial.coefficient[tmp++];
+		}
+	} else if (this->degree == polynomial.degree) {
+		result = new Polynomial(this->degree, this->coefficient);
+		for (int i = 0; i <= polynomial.degree; i++) {
+			result->coefficient[i] = result->coefficient[i] + polynomial.coefficient[i];
 		}
 	} else {
 		result = new Polynomial(polynomial.degree, polynomial.coefficient);
@@ -68,11 +77,16 @@ Polynomial Polynomial::operator- (const Polynomial& polynomial)
 {
 	Polynomial* result;
 
-	if (this->degree >= polynomial.degree) {
+	if (this->degree > polynomial.degree) {
 		result = new Polynomial(this->degree, this->coefficient);
 		unsigned int tmp = 0;
 		for (int i = this->degree - polynomial.degree; i - 1 <= polynomial.degree; i++) {
 			result->coefficient[i] = result->coefficient[i] - polynomial.coefficient[tmp++];
+		}
+	} else if (this->degree == polynomial.degree) {
+		result = new Polynomial(this->degree, this->coefficient);
+		for (int i = 0; i <= polynomial.degree; i++) {
+			result->coefficient[i] = result->coefficient[i] - polynomial.coefficient[i];
 		}
 	} else {
 		result = new Polynomial(polynomial.degree, polynomial.coefficient);
@@ -88,15 +102,15 @@ Polynomial Polynomial::operator- (const Polynomial& polynomial)
 Polynomial Polynomial::operator* (const Polynomial& polynomial)
 {
 	Polynomial temp;
-	temp.degree=degree+polynomial.degree;
+	temp.degree      = this->degree + polynomial.degree;
 	temp.coefficient = new double [temp.degree + 1];
-	for(int i=0;i<=degree;i++)
-	{
-		for(int j=0;j<=polynomial.degree;j++)
-		{
-			temp.coefficient[i+j] +=coefficient[i]*polynomial.coefficient[j];
+
+	for (int i = 0; i <= this->degree; i++) {
+		for (int j = 0; j <= polynomial.degree; j++) {
+			temp.coefficient[i + j] += this->coefficient[i] * polynomial.coefficient[j];
 		}
 	}
+
 	return temp;
 }
 
@@ -252,3 +266,4 @@ std::istream& operator>> (std::istream& in, Polynomial& polynomial)
 	}
 	return in;
 }
+#pragma clang diagnostic pop

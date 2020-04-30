@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma ide diagnostic ignored "google-explicit-constructor"
 /**
  * Created by Bernigend on 28.04.2020.
  */
@@ -58,3 +61,5 @@ public:
 
 
 #endif //LABORATORY_WORK_3_POLYNOMIAL_H
+
+#pragma clang diagnostic pop
