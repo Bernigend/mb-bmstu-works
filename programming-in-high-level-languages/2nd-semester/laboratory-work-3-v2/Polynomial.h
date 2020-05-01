@@ -15,13 +15,34 @@ protected:
 
 public:
 	// конструктор по умолчанию
+	static bool DivPolynomial(Polynomial *P, Polynomial *Q);
 	Polynomial();
+	// конструктор с указанием количества коэффициентов
+	explicit Polynomial(unsigned int);
 	// конструктор с указанием массива коэффициентов и его размера
 	Polynomial(const double*, unsigned int);
 	// конструктор со списком инициализации
 	Polynomial(const std::initializer_list<double>&);
+	// конструктор копирования
+	Polynomial(const Polynomial&);
 	// деструктор
 	~Polynomial();
+
+	// арифметические операторы
+	Polynomial operator+ (const Polynomial&);
+	Polynomial operator- (const Polynomial&);
+	Polynomial operator* (const Polynomial&);
+
+	Polynomial operator+= (const Polynomial&);
+	Polynomial operator-= (const Polynomial&);
+	Polynomial operator*= (const Polynomial&);
+
+	// вычисляет значение многочлена при заданном X
+	double calculate(double);
+
+	// перегрузка оператора []
+	double& operator[] (unsigned int);
+	double at(unsigned int);
 
 	// операторы ввода/вывода
 	friend std::ostream& operator<< (std::ostream&, const Polynomial&);
