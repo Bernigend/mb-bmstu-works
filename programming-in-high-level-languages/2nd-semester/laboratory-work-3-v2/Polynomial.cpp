@@ -111,6 +111,16 @@ Polynomial Polynomial::operator* (const Polynomial& other)
 	return temp;
 }
 
+Polynomial Polynomial::operator/ (const Polynomial& other)
+{
+	return Polynomial::DivPolynomial(*this, other);
+}
+
+Polynomial Polynomial::operator% (const Polynomial& other)
+{
+	return Polynomial::DivPolynomial(*this, other, true);
+}
+
 Polynomial Polynomial::operator+= (const Polynomial& other)
 {
 	*this = *this + other;
@@ -126,6 +136,18 @@ Polynomial Polynomial::operator-= (const Polynomial& other)
 Polynomial Polynomial::operator*= (const Polynomial& other)
 {
 	*this = *this * other;
+	return *this;
+}
+
+Polynomial Polynomial::operator/= (const Polynomial& other)
+{
+	*this = *this / other;
+	return *this;
+}
+
+Polynomial Polynomial::operator%= (const Polynomial& other)
+{
+	*this = *this % other;
 	return *this;
 }
 
@@ -214,73 +236,37 @@ std::istream& operator>> (std::istream& in, Polynomial& polynomial)
 // МЕТОД ДЕЛЕНИЯ ПОЛИНОМОВ
 // ----------------------------------- //
 
-/**
- * @param P делимое
- * @param Q делитель
- * @param H частное
- * @param R остаток
- * @return
- */
-bool Polynomial::DivPolynomial(Polynomial *P, Polynomial *Q) {
+bool Polynomial::Equal(double x, double y)
+{
+	return fabs(x - y) < 1e-9;
+}
 
-	/// DEGREE = COEFFICIENTS.SIZE() - 1
+Polynomial Polynomial::DivPolynomial(const Polynomial& dividend, const Polynomial& divider, bool returnRemainder)
+{
+	auto temp = Polynomial(dividend);
+	auto A    = &temp.coefficients;
+	auto B    = divider.coefficients;
 
-	int i,j;
-	double u;
+	int n = (int)A->size() - 1;
+	int m = (int)B.size() - 1;
 
-	auto *nh = new Polynomial(P->coefficients.size()-1 - Q->coefficients.size()-1 + 1),
-	     *nr = new Polynomial(P->coefficients.size());
+	auto result = Polynomial(n - m + 1);
 
-//	nh = (Polynomial *) calloc(1,sizeof(Polynomial));
-//	nr = (Polynomial *) calloc(1,sizeof(Polynomial));
-
-	if (Q->coefficients.size()-1==0 && Q->coefficients[0]==0.0) return false;
-
-//	nr->degree=P->degree;
-//	nr->coefficient = new double [nr->degree+1];
-
-//	for (i=0; i<=P->degree; i++)  nr->coefficient[i]=P->coefficient[i];
-	for (i=0; i<=P->coefficients.size()-1; i++)  nr->coefficients[i]=P->coefficients[i];
-
-//	nh->degree = P->degree - Q->degree;
-//	nh->coefficient = new double [nh->degree+1];
-
-	if (nh->coefficients.size()-1<0) {
-
-//		nh->degree=0;
-		nh->coefficients[0] = 0.0;
-
-	} else {
-
-		for (i = nh->coefficients.size()-1; i>=0; i--)  {
-			nh->coefficients[i] = nr->coefficients[nr->coefficients.size()-1] / Q->coefficients[Q->coefficients.size()-1];
-			for (j=i; j<=nr->coefficients.size()-1; j++) {
-				u = nh->coefficients[i] * Q->coefficients[j-i];
-				u = -u;
-				nr->coefficients[j] = nr->coefficients[j] + u;
-			}
-//			if (nr->coefficients.size()-1 > 0)  nr->degree--;
+	for (int i = n; i >= m; i--) {
+		result[i - m] = A->at(i) / B[m];
+		for (int j = m; j >= 0; j--) {
+			A->at(i - m + j) -= B[j] * result[i - m];
 		}
-
-//		while (fabs(nr->coefficients[nr->coefficients.size()-1]) < 1e-12 && nr->coefficients.size()-1>0)
-//			nr->degree--;
 	}
 
-//	H->degree      = nh->degree;
-//	H->coefficient = new double [H->degree+1];
-	Polynomial HH = Polynomial(nh->coefficients.size());
-	for (i=0; i<=nh->coefficients.size()-1; i++) HH.coefficients[i] = nh->coefficients[i];
+	A->resize(m);
+	while(A->size() > 1 && Polynomial::Equal(A->back(), 0)) {
+		A->pop_back();
+	}
 
-//	R->degree      = nr->degree;
-//	R->coefficient = new double [R->degree+1];
-	Polynomial RR = Polynomial(nr->coefficients.size());
-	for (i=0; i<=nr->coefficients.size()-1; i++) RR.coefficients[i] = nr->coefficients[i];
-
-	delete nh;
-	delete nr;
-
-	std::cout << "chastnoe: " << HH << std::endl;
-	std::cout << "ostatok: " << RR << std::endl;
-
-	return true;
+	if (returnRemainder) {
+		return temp;
+	} else {
+		return result;
+	}
 }

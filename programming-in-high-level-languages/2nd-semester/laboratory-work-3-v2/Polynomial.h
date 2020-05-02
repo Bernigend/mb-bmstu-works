@@ -11,11 +11,16 @@
 
 class Polynomial {
 protected:
+	// коэффициенты
 	std::vector<double> coefficients;
+
+	// нужна для метода деления
+	static bool Equal(double x, double y);
+	// делит один полином на другой
+	static Polynomial DivPolynomial(const Polynomial&, const Polynomial&, bool = false);
 
 public:
 	// конструктор по умолчанию
-	static bool DivPolynomial(Polynomial *P, Polynomial *Q);
 	Polynomial();
 	// конструктор с указанием количества коэффициентов
 	explicit Polynomial(unsigned int);
@@ -32,10 +37,14 @@ public:
 	Polynomial operator+ (const Polynomial&);
 	Polynomial operator- (const Polynomial&);
 	Polynomial operator* (const Polynomial&);
+	Polynomial operator/ (const Polynomial&);
+	Polynomial operator% (const Polynomial&);
 
 	Polynomial operator+= (const Polynomial&);
 	Polynomial operator-= (const Polynomial&);
 	Polynomial operator*= (const Polynomial&);
+	Polynomial operator/= (const Polynomial&);
+	Polynomial operator%= (const Polynomial&);
 
 	// вычисляет значение многочлена при заданном X
 	double calculate(double);
