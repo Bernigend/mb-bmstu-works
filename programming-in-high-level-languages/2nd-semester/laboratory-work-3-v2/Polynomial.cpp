@@ -113,11 +113,19 @@ Polynomial Polynomial::operator* (const Polynomial& other)
 
 Polynomial Polynomial::operator/ (const Polynomial& other)
 {
+	if (this->coefficients.size()-1 < other.coefficients.size()-1) {
+		return Polynomial {0};
+	}
+
 	return Polynomial::DivPolynomial(*this, other);
 }
 
 Polynomial Polynomial::operator% (const Polynomial& other)
 {
+	if (this->coefficients.size()-1 < other.coefficients.size()-1) {
+		return Polynomial (other);
+	}
+
 	return Polynomial::DivPolynomial(*this, other, true);
 }
 
@@ -192,13 +200,12 @@ double Polynomial::at(unsigned int degree)
 std::ostream& operator<< (std::ostream& out, const Polynomial& polynomial)
 {
 	int size = polynomial.coefficients.size();
-	bool first = true;
+	bool first = true, printed = false;
 
 	for (int i = size - 1; i >= 0; i--) {
 		auto coefficient = polynomial.coefficients[i];
-		if (coefficient == 0) continue;
+		if (coefficient == 0) continue; else printed = true;
 
-//		if (i != size - 1) {
 		if (!first) {
 			out << ((coefficient < 0) ? " - " : " + ");
 		} else {
@@ -212,6 +219,10 @@ std::ostream& operator<< (std::ostream& out, const Polynomial& polynomial)
 		}
 
 		first = false;
+	}
+
+	if (!printed) {
+		out << "0";
 	}
 
 	return out;

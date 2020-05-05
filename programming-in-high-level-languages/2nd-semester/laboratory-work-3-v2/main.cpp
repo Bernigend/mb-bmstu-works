@@ -80,6 +80,23 @@ int main() {
 
 	polynomialTemp = polynomial4;
 	std::cout << "4 %= 5 | " << (polynomialTemp %= polynomial5) << std::endl;
+	std::cout << std::endl;
+
+	// ------------------------------- //
+
+	double x1[] {-2}; Polynomial b (x1, 1);
+	Polynomial test1 = Polynomial(x1, 1);
+
+	std::cout << "test1 | " << test1 << std::endl;
+	std::cout << std::endl;
+
+	// --- //
+
+	std::cout << "1 / test1 | " << polynomial1 / test1 << std::endl;
+	std::cout << "test1 / 1 | " << test1 / polynomial1 << std::endl;
+	std::cout << "1 % test1 | " << polynomial1 % test1 << std::endl;
+	std::cout << "test1 % 1 | " << test1 % polynomial1 << std::endl;
+	std::cout << std::endl;
 
 	// ------------------------------- //
 
