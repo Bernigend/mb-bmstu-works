@@ -8,17 +8,20 @@
 #ifndef LAB0_SET_H
 #define LAB0_SET_H
 
+int numbers[] = {1,22,13,5,8,45,0};
+int const size = 7;
 
 class Set {
-	int *numbers = nullptr;
-	uInt size = 0;
+//	int *numbers = nullptr;
+//	uInt size = 0;
+	int *shk;
 
 public:
 	/**
 	 * Конструктор класса
 	 * @param set
 	 */
-	explicit Set(Set *set);
+	Set();
 
     /**
      * Конструктор класса
@@ -27,20 +30,13 @@ public:
      * @param size
      * @param values
      */
-    explicit Set(int size, const int *values);
+    Set(int size, const int *values);
 
     /**
      * Добавляет число к множеству
      * @param number - число для добавления
      */
     void addNumber(int number);
-
-    /**
-     * Проверяет, включает ли множество переданное число
-     * @param number - число для поиска
-     * @return
-     */
-    bool isInclude(int number);
 
     /**
      * Удаляет число из множества, если оно там есть
@@ -52,7 +48,7 @@ public:
      * Объединяет переданное множество с текущим
      * @param set - множество для объединения
      */
-    void uniteWith(const Set *set);
+    Set uniteWith(const Set *set);
 
     /**
      * Пересечение множеств
@@ -71,6 +67,13 @@ public:
      * @return
      */
     bool isEmpty() const;
+
+	/**
+	 * Проверяет, включает ли множество переданное число
+	 * @param number - число для поиска
+	 * @return
+	 */
+	bool isInclude(int number);
 
     /**
      * Выводит набор чисел на экран
@@ -120,6 +123,12 @@ public:
 	 * @return
 	 */
     static Set * difference(Set *set1, Set *set2);
+
+    Set *operator+ (Set set);
+
+	Set *operator- (Set set);
+
+	Set *operator* (Set set);
 };
 
 
