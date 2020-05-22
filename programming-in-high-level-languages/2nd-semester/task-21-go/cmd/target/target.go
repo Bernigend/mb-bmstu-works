@@ -10,8 +10,8 @@ import (
 
 // Мишень хранит данные об окружностях и выстрелах
 type Target struct {
-	Circles []*Circle
-	Points  []*Point
+	Circles Circles
+	Points  Points
 }
 
 // Загружает данные о мишени и выстрелах
@@ -53,9 +53,7 @@ func (target *Target) LoadData(scanner *bufio.Scanner) error {
 
 	// если радиусы окружностей идут не по убыванию (как указано в условии) - сортируем
 	if needSort {
-		sort.SliceStable(target.Circles, func(i, j int) bool {
-			return target.Circles[i].R > target.Circles[j].R
-		})
+		sort.Sort(target.Circles)
 	}
 
 	// ---
@@ -72,6 +70,26 @@ func (target *Target) LoadData(scanner *bufio.Scanner) error {
 	}
 
 	return nil
+}
+
+// Подсчитывает очки игрока за выстрелы
+func (target Target) CalculatePoints() (int, error) {
+	circlesNum := len(target.Circles)
+
+	switch {
+	case target.Circles == nil || circlesNum == 0:
+		return 0, fmt.Errorf("circles slice is nil")
+	case target.Points == nil || len(target.Points) == 0:
+		return 0, fmt.Errorf("points slice is nil")
+	}
+
+	var sum int
+
+	for _, point := range target.Points {
+		sum += target.Circles.Search(point)
+	}
+
+	return sum, nil
 }
 
 // Считывает несколько целых чисел из строки и присваивает их значения переданным переменным

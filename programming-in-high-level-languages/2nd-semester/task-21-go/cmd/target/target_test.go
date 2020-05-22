@@ -20,19 +20,19 @@ func TestTarget_LoadData(t *testing.T) {
 11 12`
 
 	var expectedCircles = []*Circle{
-		{15},
-		{12},
-		{9},
-		{6},
-		{3},
+		{15}, // 1
+		{12}, // 2
+		{9},  // 3
+		{6},  // 4
+		{3},  // 5
 	}
 
 	var expectedPoints = []*Point{
-		{3, 4},
-		{5, 6},
-		{7, 8},
-		{9, 10},
-		{11, 12},
+		{3, 4},   // 4
+		{5, 6},   // 4
+		{7, 8},   // 3
+		{9, 10},  // 2
+		{11, 12}, // 2
 	}
 
 	var target Target
@@ -66,5 +66,44 @@ func TestTarget_LoadData(t *testing.T) {
 			t.Error("expected", point1, "received", point2)
 			return
 		}
+	}
+}
+
+func TestTarget_CalculatePoints(t *testing.T) {
+	var targetCircles = []*Circle{
+		{15}, // 1 балл
+		{10}, // 2 балла
+		{5},  // 3 балла
+	}
+
+	var targetPoints = []*Point{
+		{0, 4},  // +3 балла
+		{0, 10}, // +2 балла
+		{0, 11}, // +1 балл
+		{2, 2},  // +3 балла
+		{-2, 2}, // +3 балла
+		{6, 1},  // +2 балла
+		{1, 6},  // +2 балла
+		{6, 8},  // +2 балла
+		{20, 4}, // +0 баллов
+	}
+
+	var target = Target{
+		Circles: targetCircles,
+		Points:  targetPoints,
+	}
+
+	var expectedSum = 18
+
+	sum, err := target.CalculatePoints()
+
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if sum != expectedSum {
+		t.Error("expected sum", expectedSum, "received", sum)
+		return
 	}
 }

@@ -5,3 +5,6 @@ type Point struct {
 	X int
 	Y int
 }
+
+// Тип для хранения выстрелов
+type Points []*Point
