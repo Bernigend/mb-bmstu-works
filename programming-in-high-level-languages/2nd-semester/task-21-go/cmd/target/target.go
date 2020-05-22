@@ -3,7 +3,6 @@ package target
 import (
 	"bufio"
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -53,7 +52,8 @@ func (target *Target) LoadData(scanner *bufio.Scanner) error {
 
 	// если радиусы окружностей идут не по убыванию (как указано в условии) - сортируем
 	if needSort {
-		sort.Sort(target.Circles)
+		//sort.Sort(target.Circles)
+		target.Circles.Sort()
 	}
 
 	// ---
@@ -86,7 +86,11 @@ func (target Target) CalculatePoints() (int, error) {
 	var sum int
 
 	for _, point := range target.Points {
-		sum += target.Circles.Search(point)
+		res, err := target.Circles.Search(point)
+		if err != nil {
+			return 0, err
+		}
+		sum += res
 	}
 
 	return sum, nil
