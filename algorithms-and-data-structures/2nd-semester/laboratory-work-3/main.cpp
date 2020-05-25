@@ -3,54 +3,66 @@
 
 int main() {
 
-	String string1 = String("Hello");
+	String string1 = String("Test");
 
 	std::cout << "String1:  " << string1 << std::endl;
 	std::cout << "Str1 len: " << string1.length() << std::endl;
 	std::cout << "Str1 end: " << string1.getLastByte()->value << std::endl;
-	std::cout << "Str1 end: " << string1.at(4) << std::endl;
 	std::cout << std::endl;
 
-	// ---
+	// --------------------- //
 
-	String string2 = String(" world");
-
-	std::cout << "Str2 len: " << string2.length() << std::endl;
+	std::cout << "Str concat: " << string1 + " " + "program" << std::endl;
+	std::cout << "String1:    " << string1 << std::endl;
 	std::cout << std::endl;
 
-	// ---
+	// --------------------- //
 
-	String string3 = String(string1);
-	string3.concat(string2);
+	String subString1 = string1.substr(1, 2);
 
-	std::cout << "String3:  " << string3 << std::endl;
-	std::cout << "Str3 len: " << string3.length() << std::endl;
-	std::cout << "Str3 end: " << string3.getLastByte()->value << std::endl;
+	std::cout << "SubStr1: " << subString1 << std::endl;
+	std::cout << "Str1:    " << string1 << std::endl;
 	std::cout << std::endl;
 
-	// ---
+	// --------------------- //
 
-	String string4 = String("");
-	string4.concat(string1);
-
-	std::cout << "String4:  " << string4 << std::endl;
-	std::cout << "Str4 len: " << string4.length() << std::endl;
-	std::cout << "Str4 end: " << string4.getLastByte()->value << std::endl;
+	std::cout << "Test - es:  " << string1 - "es" << std::endl;
+	std::cout << "Test - T:   " << string1 - "T" << std::endl;
+	std::cout << "Test - Tes: " << string1 - "Tes" << std::endl;
+	std::cout << "Test - est: " << string1 - "est" << std::endl;
+	std::cout << "Test - res: " << string1 - "res" << std::endl;
+	std::cout << "String1: " << string1 << std::endl;
 	std::cout << std::endl;
 
-	// ---
+	// --------------------- //
 
-	string4.deleteSubstr("ll");
-	std::cout << "String4:  " << string4 << std::endl;
-	std::cout << "Str4 len: " << string4.length() << std::endl;
-	std::cout << "Str4 end: " << string4.getLastByte()->value << std::endl;
+	std::cout << "Result1: " << string1.search("es")->value << std::endl;
+	std::cout << "Result2: " << string1.search("T")->value << std::endl;
+	std::cout << "Result3: " << string1.search("st")->value << std::endl;
 	std::cout << std::endl;
 
-	// ---
+	// --------------------- //
 
-	std::cout << "Str1 len: " << string1.length() << std::endl;
-	std::cout << "Str2 len: " << string2.length() << std::endl;
+	String string2 = String(string1);
+
+	string2.addTo(0, "AAB");
+	std::cout << "String2-1: " << string2 << std::endl;
+
+	string2 = string2 - "AAB";
+	std::cout << "String2-2: " << string2 << std::endl;
+	string2.addTo(3, "BBA");
+	std::cout << "String2-3: " << string2 << std::endl;
+
+	std::cout << "String1:   " << string1 << std::endl;
 	std::cout << std::endl;
 
-	return EXIT_SUCCESS;
+	// --------------------- //
+
+	String string3 = String("I cannot do this");
+	string3.replace("I", "We");
+
+	std::cout << "String3: " << string3 << std::endl;
+	std::cout << std::endl;
+
+	return 0;
 }
