@@ -6,14 +6,20 @@
 #define LABORATORY_WORK_3_V2_BYTE_H
 
 struct Byte {
-	char  value = '\0';
-	Byte* next = nullptr;
-	Byte* prev = nullptr;
+	char  value;
+	Byte* next;
+	Byte* prev;
 
-	Byte() = default;
+	Byte() {
+		this->value = '\0';
+		this->next  = NULL;
+		this->prev  = NULL;
+	}
 
 	explicit Byte(char _value) {
 		this->value = _value;
+		this->next  = NULL;
+		this->prev  = NULL;
 	}
 
 	Byte(const Byte& byte) {

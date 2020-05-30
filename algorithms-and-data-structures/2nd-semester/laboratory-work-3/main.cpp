@@ -64,5 +64,11 @@ int main() {
 	std::cout << "String3: " << string3 << std::endl;
 	std::cout << std::endl;
 
+	// --------------------- //
+
+	bool tmp;
+	std::cout << "Enter 0 or 1 to exit: ";
+	std::cin >> tmp;
+
 	return 0;
 }

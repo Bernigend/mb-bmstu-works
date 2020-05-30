@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-auto"
+#pragma ide diagnostic ignored "modernize-use-nullptr"
 //
 // Created by Bernigend on 23.05.2020.
 //
@@ -11,16 +14,21 @@
 /**
  * Конструктор по умолчанию
  */
-String::String() : head{nullptr} {}
+String::String()
+{
+	this->head = NULL;
+}
 
 /**
  * Конструктор строки из массива символов
  * @param cString - массив символов char
  */
-String::String(const char* cString) : String()
+String::String(const char* cString)
 {
+	this->head = NULL;
+	
 	pByte* tmp  = &this->head;
-	pByte  prev = nullptr;
+	pByte  prev = NULL;
 	uInt   i    = 0;
 
 	while (cString[i] != '\0') {
@@ -36,13 +44,15 @@ String::String(const char* cString) : String()
  * Конструктор копирования (создаёт новую строку на основе переданной)
  * @param string - строка для копирования
  */
-String::String(const String& string) : String()
+String::String(const String& string)
 {
-	auto   byteNow = string.head;
-	pByte* tmp     = &this->head;
-	pByte  prev    = nullptr;
+	this->head = NULL;
 
-	while (byteNow != nullptr) {
+	pByte  byteNow = string.head;
+	pByte* tmp     = &this->head;
+	pByte  prev    = NULL;
+
+	while (byteNow != NULL) {
 		*tmp         = new Byte(byteNow->value);
 		(*tmp)->prev = prev;
 		prev         = *tmp;
@@ -56,14 +66,16 @@ String::String(const String& string) : String()
  * @param start - байт для начала копирования
  * @param numberBytes - количество байт для копирования
  */
-String::String(const pByte& start, unsigned int numberBytes) : String()
+String::String(const pByte& start, unsigned int numberBytes)
 {
-	auto   byteNow = start;
+	this->head = NULL;
+
+	pByte  byteNow = start;
 	pByte* tmp     = &this->head;
-	pByte  prev    = nullptr;
+	pByte  prev    = NULL;
 	uInt   i       = 0;
 
-	while (i < numberBytes && byteNow != nullptr) {
+	while (i < numberBytes && byteNow != NULL) {
 		*tmp         = new Byte(byteNow->value);
 		(*tmp)->prev = prev;
 		prev         = *tmp;
@@ -79,7 +91,7 @@ String::String(const pByte& start, unsigned int numberBytes) : String()
 String::~String()
 {
 	pByte current, next = this->head;
-	while (next != nullptr) {
+	while (next != NULL) {
 		current = next;
 		next    = current->next;
 		delete current;
@@ -99,29 +111,29 @@ void String::addTo(unsigned int position, const String& string)
 {
 	if (string.length() == 0) { return; }
 
-	auto startByte = this->operator[](position);
-	if (startByte == nullptr) { return; }
+	pByte startByte = this->operator[](position);
+	if (startByte == NULL) { return; }
 
-	if (startByte->prev == nullptr) {
+	if (startByte->prev == NULL) {
 		startByte->prev = new Byte();
 		startByte->prev->next = startByte;
 	}
 
-	startByte      = startByte->prev;
-	auto endByte   = startByte->next;
-	auto newString = new String(string);
+	startByte       = startByte->prev;
+	pByte endByte   = startByte->next;
+	String* newString = new String(string);
 
-	if (newString->head == nullptr) { return; }
+	if (newString->head == NULL) { return; }
 
 	startByte->next       = newString->head;
 	newString->head->prev = startByte;
 
 	newString->getLastByte()->next = endByte;
-	if (endByte != nullptr) { endByte->prev = newString->getLastByte(); }
+	if (endByte != NULL) { endByte->prev = newString->getLastByte(); }
 
 	if (position == 0) {
 		this->head       = startByte->next;
-		this->head->prev = nullptr;
+		this->head->prev = NULL;
 		delete startByte;
 	}
 }
@@ -129,15 +141,15 @@ void String::addTo(unsigned int position, const String& string)
 /**
  * Ищет в строке подстроку string и возвращает байт первого вхождения строки
  * @param string - подстрока для поиска
- * @return байт первого вхождения строки или nullptr, если search нет в строке
+ * @return байт первого вхождения строки или NULL, если search нет в строке
  */
 pByte String::search(const String& string) const
 {
-	auto  strLen  = string.length();
-	auto  byteNow = this->head;
+	uInt  strLen  = string.length();
+	pByte byteNow = this->head;
 	uInt  i       = 0;
 
-	while (byteNow != nullptr) {
+	while (byteNow != NULL) {
 		if (byteNow->value == string.head->value) {
 			if (this->substr(i, strLen) == string) { return this->operator[](i); }
 		}
@@ -145,7 +157,7 @@ pByte String::search(const String& string) const
 		i++;
 	}
 
-	return nullptr;
+	return NULL;
 }
 
 /**
@@ -155,11 +167,11 @@ pByte String::search(const String& string) const
  */
 void String::replace(const String& search, const String& replace)
 {
-	auto  strLen  = search.length();
-	auto  byteNow = this->head;
+	uInt  strLen  = search.length();
+	pByte byteNow = this->head;
 	uInt  i       = 0;
 
-	while (byteNow != nullptr) {
+	while (byteNow != NULL) {
 		if (byteNow->value == search.head->value) {
 			if (this->substr(i, strLen) == search) {
 				*this = *this - search;
@@ -179,12 +191,12 @@ void String::replace(const String& search, const String& replace)
  */
 String& String::substr(unsigned int startPosition, unsigned int length) const
 {
-	auto strLen = this->length();
+	uInt strLen = this->length();
 	if (startPosition > strLen-1) { return *(new String(*this)); }
 	if (length == 0) { length = strLen - startPosition; }
 
-	auto startByte = this->operator[](startPosition);
-	auto newString = new String(startByte, length);
+	pByte startByte = this->operator[](startPosition);
+	String* newString = new String(startByte, length);
 
 	return *newString;
 }
@@ -194,10 +206,10 @@ String& String::substr(unsigned int startPosition, unsigned int length) const
  */
 unsigned int String::length() const
 {
-	auto byteNow = this->head;
+	pByte byteNow = this->head;
 	uInt i       = 0;
 
-	while (byteNow != nullptr) {
+	while (byteNow != NULL) {
 		byteNow = byteNow->next;
 		i++;
 	}
@@ -206,13 +218,13 @@ unsigned int String::length() const
 }
 
 /**
- * @return последний байт строки или nullptr, если такого нет
+ * @return последний байт строки или NULL, если такого нет
  */
 pByte String::getLastByte()
 {
-	auto byteNow = this->head;
-	if (byteNow == nullptr) { return nullptr; }
-	while (byteNow->next != nullptr) { byteNow = byteNow->next; }
+	pByte byteNow = this->head;
+	if (byteNow == NULL) { return NULL; }
+	while (byteNow->next != NULL) { byteNow = byteNow->next; }
 	return byteNow;
 }
 
@@ -223,9 +235,9 @@ pByte String::getLastByte()
  */
 pByte String::operator[] (unsigned int position)
 {
-	auto byteNow = this->head;
+	pByte byteNow = this->head;
 	uInt i       = 0;
-	while (i < position && byteNow != nullptr) {
+	while (i < position && byteNow != NULL) {
 		i++;
 		byteNow = byteNow->next;
 	}
@@ -239,9 +251,9 @@ pByte String::operator[] (unsigned int position)
  */
 const pByte& String::operator[] (unsigned int position) const
 {
-	auto byteNow = &this->head;
+	const pByte* byteNow = &this->head;
 	uInt i       = 0;
-	while (i < position && byteNow != nullptr) {
+	while (i < position && byteNow != NULL) {
 		i++;
 		byteNow = &(*byteNow)->next;
 	}
@@ -255,8 +267,8 @@ const pByte& String::operator[] (unsigned int position) const
  */
 char String::at(unsigned int position) const
 {
-	auto byte = this->operator[](position);
-	if (byte == nullptr) { return '\0'; }
+	pByte byte = this->operator[](position);
+	if (byte == NULL) { return '\0'; }
 	return byte->value;
 }
 
@@ -272,13 +284,13 @@ char String::at(unsigned int position) const
  */
 String& operator+ (const String& left, const String& right)
 {
-	auto string1 = new String(left);
-	auto string2 = new String(right);
+	String* string1 = new String(left);
+	String* string2 = new String(right);
 
-	if (string1->head == nullptr) { return *string2; }
-	if (string2->head == nullptr) { return *string1; }
+	if (string1->head == NULL) { return *string2; }
+	if (string2->head == NULL) { return *string1; }
 
-	auto end = string1->getLastByte();
+	pByte end = string1->getLastByte();
 
 	end->next     = string2->head;
 	string2->head = end;
@@ -294,37 +306,37 @@ String& operator+ (const String& left, const String& right)
  */
 String& operator- (const String& left, const String& right)
 {
-	auto   newString = new String(left);
-	pByte* tmp       = &newString->head;
-	auto   rLen      = right.length();
-	uInt   i         = 0;
+	String* newString = new String(left);
+	pByte*  tmp       = &newString->head;
+	uInt    rLen      = right.length();
+	uInt    i         = 0;
 
-	while (*tmp != nullptr) {
+	while (*tmp != NULL) {
 		if ((*tmp)->value == right.head->value) {
 			if (newString->substr(i, rLen) == right) {
-				auto start = newString->operator[](i)->prev;
-				auto end   = (i+rLen >= newString->length()) ? nullptr : newString->operator[](i + rLen);
+				pByte start = newString->operator[](i)->prev;
+				pByte end   = (i+rLen >= newString->length()) ? NULL : newString->operator[](i + rLen);
 
 				uInt k = 0;
 				pByte current, next = newString->head;
-				while (next != nullptr) {
+				while (next != NULL) {
 					current = next;
 					next    = current->next;
 					if (k >= i && k <= rLen+i-1) { delete current; }
 					k++;
 				}
 
-				if (start == nullptr) {
+				if (start == NULL) {
 					newString->head = end;
 				} else {
 					start->next = end;
 				}
-				if (end != nullptr) { end->prev = start; }
+				if (end != NULL) { end->prev = start; }
 			}
 		}
 
 		i++;
-		if ((*tmp) == nullptr) { break; }
+		if ((*tmp) == NULL) { break; }
 		tmp = &((*tmp)->next);
 	}
 
@@ -338,8 +350,8 @@ String& operator- (const String& left, const String& right)
  */
 std::ostream& operator<< (std::ostream& out, const String& string)
 {
-	auto byteNow = string.head;
-	while (byteNow != nullptr) {
+	pByte byteNow = string.head;
+	while (byteNow != NULL) {
 		out << byteNow->value;
 		byteNow = byteNow->next;
 	}
@@ -356,10 +368,10 @@ bool operator== (const String& left, const String& right)
 {
 	if (left.length() != right.length()) { return false; }
 
-	auto leftTmp  = left.head;
+	pByte leftTmp  = left.head;
 	uInt position = 0;
 
-	while (leftTmp != nullptr) {
+	while (leftTmp != NULL) {
 		if (right.at(position) != leftTmp->value) { return false;}
 		leftTmp = leftTmp->next;
 		position++;
@@ -367,3 +379,4 @@ bool operator== (const String& left, const String& right)
 
 	return true;
 }
+#pragma clang diagnostic pop
