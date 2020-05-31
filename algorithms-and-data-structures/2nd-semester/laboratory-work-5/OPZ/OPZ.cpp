@@ -113,7 +113,10 @@ void OPZ::initFromPAV()
 	}
 
 	delete [] this->statement;
-	this->statement = tmp;
+	this->statement = new char [p+1];
+	std::strncpy(this->statement, tmp, p);
+	this->statement[p] = '\0';
+	delete [] tmp;
 }
 
 // --------------------- //
