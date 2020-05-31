@@ -20,9 +20,8 @@ OPZ::OPZ(const char* _statement)
 
 OPZ::OPZ(const PAV& pav)
 {
-	this->statement = new char [std::strlen(pav.statement)+1];
-	std::strcpy(this->statement, pav.statement);
-	this->initFromPAV();
+	this->statement = NULL;
+	this->initFromPAV(pav);
 }
 
 OPZ::~OPZ()
@@ -69,54 +68,45 @@ double OPZ::calculate() const
 	return stack.pop();
 }
 
-void OPZ::initFromPAV()
-{
-	if (this->statement == NULL) return;
+bool OPZ::checkWhile(char symbol, const Stack<char>& stack) {
+	if (symbol == ')')
+		return stack.getFirst() != '(';
+	else
+		return OPZ::priority(stack.getFirst()) > OPZ::priority(symbol);
+}
 
-	unsigned int p = 0;
-	char* tmp = new char [std::strlen(this->statement)];
+void OPZ::initFromPAV(const PAV& pav)
+{
+	this->statement = new char [std::strlen(pav.statement)];
+
+	unsigned int position = 0;
 	Stack<char> stack;
 
-	for(unsigned int i = 0; i < std::strlen(this->statement); i++) {
-		char symbol = this->statement[i];
+	for (unsigned int i = 0; i < std::strlen(pav.statement); i++) {
+		char symbol = pav.statement[i];
 
-		if (symbol == '(')
+		if (symbol == '(') stack.push(symbol);
+		else if (symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/' || symbol == ')')
 		{
-			stack.push(symbol);
-		}
-		else if (symbol == '+' || symbol == '-' || symbol == '/' || symbol == '*')
-		{
-			while (!stack.empty() && OPZ::priority(stack.getFirst()) > OPZ::priority(symbol)) {
-				tmp[p] = stack.pop();
-				p++;
+			while (!stack.empty() && checkWhile(symbol, stack)) {
+				this->statement[position] = stack.pop();
+				position++;
 			}
-			stack.push(symbol);
-		}
-		else if (symbol == ')')
-		{
-			while (!stack.empty() && stack.getFirst() != '(') {
-				tmp[p] = stack.pop();
-				p++;
-			}
-			stack.pop();
+			if (symbol == ')') stack.pop(); else stack.push(symbol);
 		}
 		else
 		{
-			tmp[p] = symbol;
-			p++;
+			this->statement[position] = symbol;
+			position++;
 		}
 	}
 
-	while(!stack.empty()) {
-		tmp[p] = stack.pop();
-		p++;
+	while (!stack.empty()) {
+		this->statement[position] = stack.pop();
+		position++;
 	}
 
-	delete [] this->statement;
-	this->statement = new char [p+1];
-	std::strncpy(this->statement, tmp, p);
-	this->statement[p] = '\0';
-	delete [] tmp;
+	this->statement[position] = '\0';
 }
 
 // --------------------- //

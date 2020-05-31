@@ -14,8 +14,8 @@ class OPZ {
 protected:
 	char* statement;
 
-	void initFromPAV();
-	static int priority(char);
+	void initFromPAV(const PAV&);
+	static bool checkWhile(char, const Stack<char>&);
 
 public:
 	explicit OPZ(const char*);
@@ -23,6 +23,8 @@ public:
 	~OPZ();
 
 	double calculate() const;
+
+	static int priority(char);
 
 	friend std::ostream& operator<< (std::ostream&, const OPZ&);
 };
