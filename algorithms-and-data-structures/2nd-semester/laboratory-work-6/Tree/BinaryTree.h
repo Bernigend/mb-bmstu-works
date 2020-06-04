@@ -21,38 +21,15 @@ class BinaryTree {
     BinaryTree* right;
 
 public:
-    explicit BinaryTree(char _value, BinaryTree* _left = NULL, BinaryTree* _right = NULL)
-    : value(_value), left(_left), right(_right) {}
+    explicit BinaryTree(char, BinaryTree* = NULL, BinaryTree* = NULL);
 
-    static void push(char _value, BinaryTree*& node)
-    {
-        node = new BinaryTree(_value);
-    }
+    static void push(char, BinaryTree*&);
 
-    char getValue() const
-    {
-        return this->value;
-    }
-
-    BinaryTree** getLeftPointer()
-    {
-        return &this->left;
-    }
-
-    BinaryTree** getRightPointer()
-    {
-        return &this->right;
-    }
-
-    BinaryTree* getLeft()
-    {
-        return this->left;
-    }
-
-    BinaryTree* getRight()
-    {
-        return this->right;
-    }
+    BinaryTree** getLeftPointer();
+    BinaryTree** getRightPointer();
+    BinaryTree* getLeft();
+    BinaryTree* getRight();
+    char getValue() const;
 };
 
 
