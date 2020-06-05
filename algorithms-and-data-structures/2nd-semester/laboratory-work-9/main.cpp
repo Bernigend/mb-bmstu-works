@@ -5,6 +5,8 @@
 #include "Graph/Graph.h"
 
 int main() {
+    const unsigned int GRAPH_SIZE = 9;
+
     bool map[GRAPH_SIZE][GRAPH_SIZE] = {
         { 0, 0, 1, 1, 0, 0, 0, 1, 1 },
         { 0, 0, 0, 0, 0, 1, 1, 0, 0 },
@@ -17,23 +19,29 @@ int main() {
         { 1, 0, 0, 1, 0, 0, 0, 0, 0 }
     };
 
-    unsigned int start;
+    bool* pMap = reinterpret_cast<bool*>(map);
 
-    do {
+    unsigned int start = 2;
 
-        std::cout << "Enter start point: ";
-        std::cin >> start;
+    Graph::searchDfs(start, pMap, GRAPH_SIZE, std::cout);
+    std::cout << std::endl;
+    Graph::searchBfs(start, pMap, GRAPH_SIZE, std::cout);
 
-        std::cout << "DFS: ";
-        Graph::searchDfs(start, map, std::cout);
-        std::cout << std::endl;
-
-        std::cout << "BFS: ";
-        Graph::searchBfs(start, map, std::cout);
-        std::cout << std::endl;
-        std::cout << std::endl;
-
-    } while (start != 0);
+//    do {
+//
+//        std::cout << "Enter start point: ";
+//        std::cin >> start;
+//
+//        std::cout << "DFS: ";
+//        Graph::searchDfs(start, map, std::cout);
+//        std::cout << std::endl;
+//
+//        std::cout << "BFS: ";
+//        Graph::searchBfs(start, map, std::cout);
+//        std::cout << std::endl;
+//        std::cout << std::endl;
+//
+//    } while (start != 0);
 }
 
 
