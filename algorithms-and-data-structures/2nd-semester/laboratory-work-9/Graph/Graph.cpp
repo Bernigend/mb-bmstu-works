@@ -21,6 +21,13 @@ NodeStatus* Graph::nodeStatus = NULL;
 // --------------------- //
 
 
+/**
+ * Рекурсивный обход графа в глубину
+ * @param start начальный узел графа
+ * @param map сам граф
+ * @param size количество узлов графа (размер массива map)
+ * @param out куда выводить информацию о текущем узле
+ */
 void Graph::dfs(unsigned int start, const bool map[], unsigned int size, std::ostream& out)
 {
     out << start+1 << " ";
@@ -31,6 +38,11 @@ void Graph::dfs(unsigned int start, const bool map[], unsigned int size, std::os
 }
 
 
+/**
+ * Пересоздаёт и обнуляет массив Graph::nodeStatus (бывш. visited)
+ * @param num размер создаваемого массива
+ * @return false, если num = 0, иначе true
+ */
 bool Graph::nullVisited(unsigned int num)
 {
     if (num == 0) return false;
@@ -43,6 +55,13 @@ bool Graph::nullVisited(unsigned int num)
 }
 
 
+/**
+ * Запускает обход графа в глубину
+ * @param start начальный узел графа
+ * @param map сам граф
+ * @param size количество узлов графа (размер массива map)
+ * @param out куда выводить информацию о текущем узле
+ */
 void Graph::searchDfs(unsigned int start, const bool map[], unsigned int size, std::ostream& out)
 {
     if (start == 0) return;
@@ -51,6 +70,13 @@ void Graph::searchDfs(unsigned int start, const bool map[], unsigned int size, s
 }
 
 
+/**
+ * Запускает обход графаф в ширину
+ * @param start начальный узел графа
+ * @param map сам граф
+ * @param size количество узлов графа (размер массива map)
+ * @param out куда выводить информацию о текущем узле
+ */
 void Graph::searchBfs(unsigned int start, const bool map[], unsigned int size, std::ostream& out)
 {
     if (start == 0) return;
