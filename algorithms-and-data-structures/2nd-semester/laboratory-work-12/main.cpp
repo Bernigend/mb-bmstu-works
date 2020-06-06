@@ -11,7 +11,7 @@
 #include "Sort/ssort.h"
 #include "Sort/qsort.h"
 
-int* createArray(int* array, unsigned int size);
+void fillArray(int* array, unsigned int size);
 template< typename Type > void printArray(Type* array, unsigned int size, unsigned int compareNum, unsigned int swapNum);
 
 int main()
@@ -28,30 +28,36 @@ int main()
 
     std::cout << " ----<---- QSORT ---->---- " << std::endl << std::endl;
 
-    createArray(array1, SIZE_1); lab12::qsort(array1, 0, SIZE_1-1, compareNum = 0, swapNum = 0);
+    fillArray(array1, SIZE_1);
+    lab12::qsort(array1, 0, SIZE_1 - 1, compareNum = 0, swapNum = 0);
     printArray(array1, SIZE_1, compareNum, swapNum);
 
-    createArray(array2, SIZE_2); lab12::qsort(array2, 0, SIZE_2-1, compareNum = 0, swapNum = 0);
+    fillArray(array2, SIZE_2);
+    lab12::qsort(array2, 0, SIZE_2 - 1, compareNum = 0, swapNum = 0);
     printArray(array2, SIZE_2, compareNum, swapNum);
 
     // -------------- //
 
     std::cout << " ----<---- SSORT ---->---- " << std::endl << std::endl;
 
-    createArray(array1, SIZE_1); lab12::ssort(array1, SIZE_1, compareNum = 0, swapNum = 0);
+    fillArray(array1, SIZE_1);
+    lab12::ssort(array1, SIZE_1, compareNum = 0, swapNum = 0);
     printArray(array1, SIZE_1, compareNum, swapNum);
 
-    createArray(array2, SIZE_2); lab12::ssort(array2, SIZE_2, compareNum = 0, swapNum = 0);
+    fillArray(array2, SIZE_2);
+    lab12::ssort(array2, SIZE_2, compareNum = 0, swapNum = 0);
     printArray(array2, SIZE_2, compareNum, swapNum);
 
     // -------------- //
 
     std::cout << " ----<---- BSORT ---->---- " << std::endl << std::endl;
 
-    createArray(array1, SIZE_1); lab12::bsort(array1, SIZE_1, compareNum = 0, swapNum = 0);
+    fillArray(array1, SIZE_1);
+    lab12::bsort(array1, SIZE_1, compareNum = 0, swapNum = 0);
     printArray(array1, SIZE_1, compareNum, swapNum);
 
-    createArray(array2, SIZE_2); lab12::bsort(array2, SIZE_2, compareNum = 0, swapNum = 0);
+    fillArray(array2, SIZE_2);
+    lab12::bsort(array2, SIZE_2, compareNum = 0, swapNum = 0);
     printArray(array2, SIZE_2, compareNum, swapNum);
 
     return 0;
@@ -62,11 +68,10 @@ int main()
  * @param array массив для заполнения
  * @param size размер массива
  */
-int* createArray(int* array, unsigned int size)
+void fillArray(int* array, unsigned int size)
 {
     std::srand((unsigned int)time(NULL));
     for (unsigned int i = 0; i < size; i++) array[i] = std::rand() % 200 - 100;
-    return array;
 }
 
 /**
