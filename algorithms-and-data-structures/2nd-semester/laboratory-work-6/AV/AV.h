@@ -1,4 +1,4 @@
-#pragma clang diagnostic push
+#pragma ide diagnostic ignored "google-explicit-constructor"
 #pragma ide diagnostic ignored "modernize-use-nullptr"
 //
 // Created by Bernigend on 04.06.2020.
@@ -7,6 +7,9 @@
 #ifndef LABORATORY_WORK_6_AV_H
 #define LABORATORY_WORK_6_AV_H
 
+
+#include <ostream>
+#include <string>
 
 #include "../Tree/BinaryTree.h"
 
@@ -19,7 +22,10 @@ protected:
 
 public:
     explicit AV(const std::string&);
-    friend std::ostream& operator<< (std::ostream&, const AV&);
+
+	friend std::ostream& operator<< (std::ostream&, const AV&);
+
+	operator std::string() const;
 };
 
 

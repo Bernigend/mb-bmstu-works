@@ -5,8 +5,6 @@
 // Created by Bernigend on 04.06.2020.
 //
 
-#include <ostream>
-
 #ifndef LABORATORY_WORK_6_BINARYTREE_H
 #define LABORATORY_WORK_6_BINARYTREE_H
 

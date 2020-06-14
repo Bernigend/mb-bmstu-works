@@ -1,4 +1,3 @@
-#pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-nullptr"
 //
 // Created by Bernigend on 04.06.2020.
@@ -81,6 +80,13 @@ void AV::toLine(std::string& outString, BinaryTree* node)
         // ставим ")"
         if (symbol >= 'a' && symbol <= 'z' || node->getRight()->getRight() != NULL) outString += ')';
     }
+}
+
+AV::operator std::string() const
+{
+	std::string tmp;
+	AV::toLine(tmp, this->values);
+	return tmp;
 }
 
 // --------------------- //
