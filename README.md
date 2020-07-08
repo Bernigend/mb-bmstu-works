@@ -2,3 +2,7 @@
 * laboratory-work-$ - лабораторные работы
 * task-$ - решения задач из задачника
 * exam-$ - зачётные и экзаменационные работы
+
+----
+
+> **Зеркало:** https://gitlab.com/Bernigend/mb-bmstu-works
