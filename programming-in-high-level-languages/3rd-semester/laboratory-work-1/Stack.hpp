@@ -10,10 +10,7 @@ namespace lab {
 	 * @param _value значение типа Type
 	 */
 	template<typename Type>
-	StackElement<Type>::StackElement(Type _value)
-	{
-		this->value = _value;
-	}
+	StackElement<Type>::StackElement(Type _value) : value(_value) {}
 
 	/**
 	 * Конструктор с параметром (не копирования - по стандарту конструктор копирования не может быть шаблоном).
@@ -57,14 +54,14 @@ namespace lab {
 	{
 		if (!this->head) {
 			this->head = std::make_unique<StackElement<Type>>(value);
-			this->numElements++;
+			this->numElements += 1;
 			return;
 		}
 
 		auto tmp = new StackElement<Type>(value);
 		tmp->next = std::move(this->head);
 		this->head = std::unique_ptr<StackElement<Type>>(tmp);
-		this->numElements++;
+		this->numElements += 1;
 	}
 
 	/**
@@ -89,6 +86,7 @@ namespace lab {
 		}
 
 		cur->next = std::unique_ptr<StackElement<Type>>(tmp);
+		this->numElements += 1;
 	}
 
 	/**
@@ -96,6 +94,7 @@ namespace lab {
 	 *
 	 * @tparam Type тип данных стека
 	 * @return значение элемента стека типа Type
+	 * @throw PopOutOfRange если была попытка извлечь элемент из пустого стека
 	 */
 	template<typename Type>
 	Type Stack<Type>::pop()
@@ -106,7 +105,7 @@ namespace lab {
 
 		auto toRemove = std::move(this->head);
 		this->head = std::move(toRemove->next);
-		this->numElements--;
+		this->numElements -= 1;
 
 		return toRemove->value;
 	}
@@ -116,6 +115,7 @@ namespace lab {
 	 *
 	 * @tparam Type тип данных стека
 	 * @return true, если значение существует, иначе - false
+	 * @throw PopOutOfRange если была попытка извлечь элемент из пустого стека
 	 */
 	template<typename Type>
 	Type Stack<Type>::check_pop() const
@@ -148,7 +148,7 @@ namespace lab {
 	template<typename Type>
 	bool Stack<Type>::empty() const
 	{
-		return static_cast<bool>(this->head);
+		return static_cast<bool>(!this->head);
 	}
 
 	/**
@@ -167,6 +167,7 @@ namespace lab {
 	/**
 	 * Оператор присваивания (копирования).
 	 * ПОлностью копирует стек в новую пременную.
+	 *
 	 * @tparam Type тип данных стека
 	 * @param stack стек для копирования
 	 * @return новая копия стека
