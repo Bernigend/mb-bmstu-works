@@ -15,6 +15,12 @@ namespace lab {
 		this->value = _value;
 	}
 
+	/**
+	 * Конструктор с параметром (не копирования - по стандарту конструктор копирования не может быть шаблоном).
+	 *
+	 * @tparam Type тип данных стека
+	 * @param stack стек для копирования
+	 */
 	template<typename Type>
 	Stack<Type>::Stack(const Stack<Type>& stack)
 	{
@@ -23,6 +29,20 @@ namespace lab {
 		while(tmp != nullptr) {
 			this->push_back(tmp->value);
 			tmp = tmp->next.get();
+		}
+	}
+
+	/**
+	 * Конструктор со списком инициализации.
+	 *
+	 * @tparam Type тип данных стека
+	 * @param list список инициализации
+	 */
+	template<typename Type>
+	Stack<Type>::Stack(std::initializer_list<Type> list)
+	{
+		for (Type item : list) {
+			this->push(item);
 		}
 	}
 
@@ -92,7 +112,7 @@ namespace lab {
 	}
 
 	/**
-	 * Проверяет, существует ли элемент для изъятия.
+	 * Возвращает значение элемента без его удаления.
 	 *
 	 * @tparam Type тип данных стека
 	 * @return true, если значение существует, иначе - false
@@ -145,6 +165,21 @@ namespace lab {
 	}
 
 	/**
+	 * Оператор присваивания (копирования).
+	 * ПОлностью копирует стек в новую пременную.
+	 * @tparam Type тип данных стека
+	 * @param stack стек для копирования
+	 * @return новая копия стека
+	 */
+	template<typename Type>
+	Stack<Type>& Stack<Type>::operator= (const Stack<Type>& stack)
+	{
+		if (this == &stack) return *this;
+		*this = Stack(stack);
+		return *this;
+	}
+
+	/**
 	 * Выводит все элементы стека.
 	 *
 	 * @tparam Type тип данных стека
@@ -164,7 +199,5 @@ namespace lab {
 
 		return out;
 	}
-
-
 
 }

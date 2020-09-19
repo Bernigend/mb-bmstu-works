@@ -18,10 +18,6 @@ namespace lab {
 		std::unique_ptr<StackElement<Type>> next;
 
 		explicit StackElement(Type);
-
-		~StackElement() {
-			std::cout << "deleted " << this->value << std::endl;
-		}
 	};
 
 	// шаблонный класс стека (LIFO)
@@ -41,13 +37,13 @@ namespace lab {
 		// поэтому это просто конструктор с параметром
 		Stack(const Stack<Type>&);
 		// конструктор со списком инициализации
-//		Stack(std::initializer_list<Type>);
+		Stack(std::initializer_list<Type>);
 
 		// добавляет элемент в стек
 		void push(Type);
 		// изымает элемент из стека (возвращает значение и удаляет элемент)
 		Type pop();
-		// проверяет, можно ли изъять элемент
+		// возвращает значение элемента без его удаления
 		[[nodiscard]] Type check_pop() const;
 
 		// возвращает количество элементов стека
