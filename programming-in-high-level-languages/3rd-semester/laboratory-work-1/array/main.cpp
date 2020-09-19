@@ -8,6 +8,8 @@ struct TempStruct {
 	int value1 = 0;
 	int value2 = 0;
 
+	TempStruct() = default;
+
 	TempStruct(int v1, int v2)
 	{
 		this->value1 = v1;
@@ -40,6 +42,15 @@ int main() {
 	lab::Stack<int> stackCopy(stackDefault);
 	std::cout << "stack copy:      " << stackCopy << std::endl;
 
+	// стек с указанием вместимости
+	lab::Stack<int> stackCapacity(20);
+	stackCapacity.push(1);
+	stackCapacity.push(2);
+	stackCapacity.push(3);
+	stackCapacity.push(4);
+	stackCapacity.push(5);
+	std::cout << "stack capacity:  " << stackCapacity << std::endl;
+
 	std::cout << std::endl;
 
 	// изъятие элементов из стека
@@ -53,7 +64,7 @@ int main() {
 		// все элементы уже извлечены, но мы пытаемся получить очередное значение
 		std::cout << "check pop: " << stackDefault.check_pop() << std::endl << std::endl;
 
-	} catch (lab::PopOutOfRange& e) {
+	} catch (lab::pop_out_of_index& e) {
 		std::cout << std::endl << "[ERROR] cannot pop element" << std::endl << std::endl;
 	}
 
