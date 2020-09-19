@@ -72,8 +72,12 @@ namespace lab {
 	template<typename Type>
 	Type Stack<Type>::pop() {
 		if (this->numElements == 0) throw pop_out_of_index();
+
 		this->numElements -= 1;
-		return this->array[this->numElements];
+		Type tmp = this->array[this->numElements];
+		if (this->numElements == 0) this->clear();
+
+		return tmp;
 	}
 
 	/**
@@ -128,7 +132,7 @@ namespace lab {
 	 */
 	template<typename Type>
 	bool Stack<Type>::empty() const {
-		return static_cast<bool>(this->array);
+		return !static_cast<bool>(this->array);
 	}
 
 	/**
@@ -139,7 +143,8 @@ namespace lab {
 	template<typename Type>
 	void Stack<Type>::clear() {
 		if (!this->array) return;
-		auto toRemove = std::move(this->array);
+		std::unique_ptr<Type[]> toRemove = std::move(this->array);
+		this->numElements = 0;
 	}
 
 	/**
