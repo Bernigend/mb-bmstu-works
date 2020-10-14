@@ -2,6 +2,9 @@
 // Created by Bernigend on 19.09.2020.
 //
 
+#include <stack>
+#include <queue>
+#include <deque>
 #include "Stack.hpp"
 
 struct TempStruct {
@@ -23,6 +26,37 @@ struct TempStruct {
 };
 
 int main() {
+
+	std::stack<int> st;
+
+	for (std::size_t i = 0; i < 999999999999999; i++)
+		st.push(1);
+
+//	st.emplace(1);
+//
+//	while(!st.empty()) {
+//		auto tmp = st.top();
+//		std::cout << tmp << " ";
+//		st.pop();
+//	}
+
+//	std::queue<int> queue;
+//
+//	for (std::size_t i = 0; i < 10000000; i++)
+//		queue.push(1);
+//
+//	while(!queue.empty()) {
+//		auto tmp = queue.front();
+//		std::cout << tmp << " ";
+//		queue.pop();
+//	}
+
+//	std::deque<int> deque;
+//
+//	deque.push_back(1);
+
+	return 0;
+
 	// стек со списком инициализации
 	lab::Stack<int> stackList ({ 1, 2, 3, 4, 5, 6, 7 });
 	std::cout << "stack init list: " << stackList << std::endl;

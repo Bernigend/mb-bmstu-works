@@ -58,7 +58,7 @@ namespace lab {
 	template<typename Type>
 	void Stack<Type>::push(Type value)
 	{
-		if (this->numElements >= this->capacity) this->resize(this->capacity + 1);
+		if (this->numElements >= this->capacity) this->resize(this->capacity + 8);
 		this->array[this->numElements] = value;
 		this->numElements += 1;
 	}
@@ -71,7 +71,7 @@ namespace lab {
 	 */
 	template<typename Type>
 	Type Stack<Type>::pop() {
-		if (this->numElements == 0) throw pop_out_of_index();
+		if (this->empty()) throw pop_out_of_index();
 
 		this->numElements -= 1;
 		Type tmp = this->array[this->numElements];
@@ -88,7 +88,7 @@ namespace lab {
 	 */
 	template<typename Type>
 	Type Stack<Type>::check_pop() const {
-		if (this->numElements == 0) throw pop_out_of_index();
+		if (this->empty()) throw pop_out_of_index();
 		return this->array[this->numElements];
 	}
 
@@ -142,8 +142,7 @@ namespace lab {
 	 */
 	template<typename Type>
 	void Stack<Type>::clear() {
-		if (!this->array) return;
-		std::unique_ptr<Type[]> toRemove = std::move(this->array);
+		if (this->empty()) return;
 		this->numElements = 0;
 	}
 
