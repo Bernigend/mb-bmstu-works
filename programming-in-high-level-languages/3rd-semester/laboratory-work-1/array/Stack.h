@@ -20,6 +20,8 @@ namespace lab {
 		std::size_t numElements = 0;
 		std::unique_ptr<Type[]> array;
 
+		void resize(std::size_t _capacity);
+
 	public:
 		Stack() = default;
 		~Stack() = default;
@@ -31,8 +33,6 @@ namespace lab {
 		void push(Type value);
 		Type pop();
 		[[nodiscard]] Type check_pop() const;
-
-		void resize(std::size_t _capacity);
 
 		[[nodiscard]] std::size_t size() const;
 		[[nodiscard]] bool empty() const;
