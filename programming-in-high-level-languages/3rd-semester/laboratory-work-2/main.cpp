@@ -1,5 +1,7 @@
 #include <iostream>
-#include "Queue/Queue.hpp"
+#include "Queue/Queue.h"
+#include "Stack/Stack.h"
+#include "Converter.h"
 
 struct TempStruct {
     int value1 = 0;
@@ -18,6 +20,14 @@ struct TempStruct {
 };
 
 int main() {
+    lab::Stack<int> tmpStackList ({ 1, 2, 3, 4, 5, 6, 7 });
+    std::cout << "queue from stack: " << lab::Converter::stackToQueue(tmpStackList) << std::endl;
+    std::cout << "prev stack:       " << tmpStackList << std::endl << std::endl;
+
+    lab::Queue<int> tmpQueueList ({ 1, 2, 3, 4, 5, 6, 7 });
+    std::cout << "stack from queue: " << lab::Converter::queueToStack(tmpQueueList) << std::endl;
+    std::cout << "prev queue:       " << tmpQueueList << std::endl << std::endl;
+
     // очередь со списком инициализации
     lab::Queue<int> queueList ({ 1, 2, 3, 4, 5, 6, 7 });
     std::cout << "queue init list: " << queueList << std::endl;

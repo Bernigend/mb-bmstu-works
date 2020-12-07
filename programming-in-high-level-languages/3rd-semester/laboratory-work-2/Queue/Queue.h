@@ -47,5 +47,6 @@ namespace lab {
     };
 }
 
+#include "Queue.hpp"
 
 #endif //LABORATORY_WORK_2_QUEUE_H
