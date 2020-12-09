@@ -66,6 +66,7 @@ public abstract class DataList {
 
         int value = this.head.value;
         this.head = this.head.next;
+        this.size--;
 
         return value;
     }
@@ -90,6 +91,7 @@ public abstract class DataList {
 
         int value = tmp.next.value;
         tmp.next = null;
+        this.size--;
 
         return value;
     }
