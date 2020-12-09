@@ -119,7 +119,7 @@ public class BinaryReader {
                 seconds %= 60;
 
                 if (!this.isSystemMessage())
-                    this.outputWriter.write("Time: " + String.format("%02d:%02d:%02d", hours, minutes, seconds) + '\n');
+                    this.outputWriter.write("Time:           " + String.format("%02d:%02d:%02d", hours, minutes, seconds) + '\n');
             }
         }
     }
@@ -127,31 +127,21 @@ public class BinaryReader {
     /**
      * Находит данные о типе сообщения
      * 6 байт - размерность (или тип сообщения у служебного сообщения)
-     *
-     * @throws IOException .
      */
-    protected void getMessageType() throws IOException {
+    protected void getMessageType() {
         this.messageType = this.currentByte;
-
-        if (!this.isSystemMessage())
-            this.outputWriter.write("Message type: " + this.messageType + '\n');
     }
 
     /**
      * Находит данные о типе значения сообщения
      * 7 байт - атрибут и тип значения (или только тип значения у служебного сообщения)
-     *
-     * @throws IOException .
      */
-    protected void getValueType() throws IOException {
+    protected void getValueType() {
         if (this.paramNumber == 65535) {
             this.valueType = this.currentByte;
         } else {
             this.valueType = this.currentByte & 15; // 15 -> 00001111 bit mask
         }
-
-        if (!this.isSystemMessage())
-            this.outputWriter.write("Value type: " + this.valueType + '\n');
     }
 
     /**
@@ -189,7 +179,7 @@ public class BinaryReader {
         if (this.position == 15) {
 
             if (!this.isSystemMessage()) {
-                this.outputWriter.write("Value (long): " + Long.parseLong(this.tmpString, 16) + '\n');
+                this.outputWriter.write("Value (long):   " + Long.parseLong(this.tmpString, 16) + '\n');
                 this.outputWriter.write('\n');
             }
             this.position = -1;
@@ -228,9 +218,6 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 11) {
                 this.codeLength = Integer.parseInt(this.tmpString, 16);
-
-                if (!this.isSystemMessage())
-                    this.outputWriter.write("Code length: " + this.codeLength + '\n');
             }
         } else {
             if (this.position == 12) {
@@ -240,7 +227,7 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 15) {
                 if (!this.isSystemMessage()) {
-                    this.outputWriter.write("Value (code): " + Long.parseLong(this.tmpString, 16) + '\n');
+                    this.outputWriter.write("Value (code):   " + Long.parseLong(this.tmpString, 16) + '\n');
                     this.outputWriter.write('\n');
                 }
                 this.position = -1;
@@ -260,14 +247,11 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 11) {
                 this.codeLength = Integer.parseInt(this.tmpString, 16);
-
-                if (!this.isSystemMessage())
-                    this.outputWriter.write("Code length: " + this.codeLength + '\n');
             }
         } else {
             if (--this.codeLength == 0) {
                 if (!this.isSystemMessage()) {
-                    this.outputWriter.write("Value (point): continued\n");
+                    this.outputWriter.write("Value (point):  continued\n");
                     this.outputWriter.write('\n');
                 }
                 this.position = -1;
