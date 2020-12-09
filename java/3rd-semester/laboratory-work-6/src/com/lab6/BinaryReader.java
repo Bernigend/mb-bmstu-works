@@ -3,6 +3,9 @@ package com.lab6;
 import java.io.*;
 
 public class BinaryReader {
+    // номер параметра служебного сообщения
+    protected final int SYSTEM_MESSAGE_PARAM = 65535;
+
     // входной файл
     protected InputStream inputStream;
     // выходной файл
@@ -87,7 +90,12 @@ public class BinaryReader {
         } else {
             this.tmpString = this.tmpString + this.currentByteHex;
             this.paramNumber = Integer.parseInt(this.tmpString, 16);
-            this.outputWriter.write("Parameter ID: " + this.paramNumber + '\n');
+
+            if (!this.isSystemMessage()) {
+                String paramName = XmlParamFinder.find(this.paramNumber, this.xmlParamElements);
+                this.outputWriter.write("Parameter ID:   " + this.paramNumber + '\n');
+                this.outputWriter.write("Parameter name: " + paramName + '\n');
+            }
         }
     }
 
@@ -104,7 +112,14 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 5) {
                 this.milliseconds = Long.parseLong(this.tmpString, 16);
-                this.outputWriter.write("Milliseconds: " + milliseconds + '\n');
+                this.milliseconds /= 1000;
+
+                long hours = this.milliseconds / 3600;
+                long minutes = (this.milliseconds % 3600) / 60;
+                long seconds = this.milliseconds % 60;
+
+                if (!this.isSystemMessage())
+                    this.outputWriter.write("Time: " + String.format("%02d:%02d:%02d", hours, minutes, seconds) + '\n');
             }
         }
     }
@@ -117,7 +132,9 @@ public class BinaryReader {
      */
     protected void getMessageType() throws IOException {
         this.messageType = this.currentByte;
-        this.outputWriter.write("Message type: " + this.messageType + '\n');
+
+        if (!this.isSystemMessage())
+            this.outputWriter.write("Message type: " + this.messageType + '\n');
     }
 
     /**
@@ -132,7 +149,9 @@ public class BinaryReader {
         } else {
             this.valueType = this.currentByte & 15; // 15 -> 00001111 bit mask
         }
-        this.outputWriter.write("Value type: " + this.valueType + '\n');
+
+        if (!this.isSystemMessage())
+            this.outputWriter.write("Value type: " + this.valueType + '\n');
     }
 
     /**
@@ -168,8 +187,11 @@ public class BinaryReader {
 
         this.tmpString = this.tmpString + this.currentByteHex;
         if (this.position == 15) {
-            this.outputWriter.write("Value (long): " + Long.parseLong(this.tmpString, 16) + '\n');
-            this.outputWriter.write('\n');
+
+            if (!this.isSystemMessage()) {
+                this.outputWriter.write("Value (long): " + Long.parseLong(this.tmpString, 16) + '\n');
+                this.outputWriter.write('\n');
+            }
             this.position = -1;
         }
     }
@@ -182,12 +204,14 @@ public class BinaryReader {
         this.tmpString = this.tmpString + this.currentByteHex;
 
         if (this.position == 15) {
-            try {
-                this.outputWriter.write("Value (double): " + Long.parseLong(this.tmpString, 16) + '\n');
-            } catch (NumberFormatException e) {
-                this.outputWriter.write("Value (double): -------------------- !!! ERROR: " + e.getLocalizedMessage() + '\n');
+            if (!this.isSystemMessage()) {
+                try {
+                    this.outputWriter.write("Value (double): " + Long.parseLong(this.tmpString, 16) + '\n');
+                } catch (NumberFormatException e) {
+                    this.outputWriter.write("Value (double): -------------------- !!! ERROR: " + e.getLocalizedMessage() + '\n');
+                }
+                this.outputWriter.write('\n');
             }
-            this.outputWriter.write('\n');
             this.position = -1;
         }
     }
@@ -204,7 +228,9 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 11) {
                 this.codeLength = Integer.parseInt(this.tmpString, 16);
-                this.outputWriter.write("Code length: " + this.codeLength + '\n');
+
+                if (!this.isSystemMessage())
+                    this.outputWriter.write("Code length: " + this.codeLength + '\n');
             }
         } else {
             if (this.position == 12) {
@@ -213,8 +239,10 @@ public class BinaryReader {
 
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 15) {
-                this.outputWriter.write("Value (code): " + Long.parseLong(this.tmpString, 16) + '\n');
-                this.outputWriter.write('\n');
+                if (!this.isSystemMessage()) {
+                    this.outputWriter.write("Value (code): " + Long.parseLong(this.tmpString, 16) + '\n');
+                    this.outputWriter.write('\n');
+                }
                 this.position = -1;
             }
         }
@@ -232,14 +260,27 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 11) {
                 this.codeLength = Integer.parseInt(this.tmpString, 16);
-                this.outputWriter.write("Code length: " + this.codeLength + '\n');
+
+                if (!this.isSystemMessage())
+                    this.outputWriter.write("Code length: " + this.codeLength + '\n');
             }
         } else {
             if (--this.codeLength == 0) {
-                this.outputWriter.write("Value (point): continued\n");
-                this.outputWriter.write('\n');
+                if (!this.isSystemMessage()) {
+                    this.outputWriter.write("Value (point): continued\n");
+                    this.outputWriter.write('\n');
+                }
                 this.position = -1;
             }
         }
+    }
+
+    /**
+     * Возвращает true, если текущая запись служебная
+     * @return true, если текущая запись служебная
+     */
+    protected boolean isSystemMessage()
+    {
+        return this.paramNumber == this.SYSTEM_MESSAGE_PARAM;
     }
 }
