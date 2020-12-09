@@ -112,11 +112,11 @@ public class BinaryReader {
             this.tmpString = this.tmpString + this.currentByteHex;
             if (this.position == 5) {
                 this.milliseconds = Long.parseLong(this.tmpString, 16);
-                this.milliseconds /= 1000;
 
-                long hours = this.milliseconds / 3600;
-                long minutes = (this.milliseconds % 3600) / 60;
-                long seconds = this.milliseconds % 60;
+                long seconds = this.milliseconds / 1000;
+                long hours = seconds / 3600;
+                long minutes = (seconds % 3600) / 60;
+                seconds %= 60;
 
                 if (!this.isSystemMessage())
                     this.outputWriter.write("Time: " + String.format("%02d:%02d:%02d", hours, minutes, seconds) + '\n');
