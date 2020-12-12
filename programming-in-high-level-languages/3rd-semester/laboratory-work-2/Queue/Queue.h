@@ -40,7 +40,7 @@ namespace lab {
         [[nodiscard]] bool empty() const noexcept;
         void clean();
 
-        Queue& operator= (const Queue<T>&);
+        Queue<T>& operator= (const Queue<T>&);
 
         template<typename Type>
         friend std::ostream& operator<< (std::ostream&, const Queue<Type>&);
