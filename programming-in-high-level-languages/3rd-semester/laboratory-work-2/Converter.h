@@ -22,7 +22,7 @@ namespace lab {
         template<typename T>
         static Stack<T>& queueToStack(const Queue<T>& queue)
         {
-            auto newStack = new Stack<T>();
+            auto newStack = new Stack<T>(queue.size());
             auto tmpQueue = Queue<T>(queue);
 
             while (!tmpQueue.empty()) {
