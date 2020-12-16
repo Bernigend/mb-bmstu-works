@@ -19,6 +19,15 @@ struct TempStruct {
 };
 
 int main() {
+	// Проваленный тест преподавателя
+	lab::Queue<int> q_i { 2, 3, 100 };
+	lab::Queue<int> q_i2(q_i);
+	std::cout << "2 3 100: " << q_i2 << std::endl;
+
+	q_i = q_i2 = q_i2;
+	std::cout << "copy operator=: " << q_i << std::endl << std::endl;
+	// <-- Проваленный тест преподавателя;
+
     lab::Stack<int> tmpStackList ({ 1, 2, 3, 4, 5, 6, 7 });
     std::cout << "queue from stack: " << lab::Queue<int>(tmpStackList) << std::endl;
     std::cout << "prev stack:       " << tmpStackList << std::endl;

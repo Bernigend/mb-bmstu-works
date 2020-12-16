@@ -172,7 +172,10 @@ namespace lab {
     Queue<T>& Queue<T>::operator=(const Queue<T>& queue)
     {
         if (this == &queue) return *this;
-        *this = Queue<T>(queue);
+
+        auto tmp = Queue<T>(queue);
+        this->_head = std::move(tmp._head);
+
         return *this;
     }
 
