@@ -32,7 +32,7 @@ namespace lab {
         explicit Stack(std::size_t _capacity);
         Stack(std::initializer_list<Type> list);
         Stack(const Stack& stack);
-        Stack(const Queue<Type>&);
+        explicit Stack(const Queue<Type>&);
 
         void push(Type value);
         Type pop();

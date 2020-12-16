@@ -34,7 +34,7 @@ namespace lab {
         Queue(const Queue<T>&);
         Queue(std::initializer_list<T>);
         Queue(Queue<T>&&) noexcept;
-        Queue(const Stack<T>&);
+        explicit Queue(const Stack<T>&);
 
         void push(T);
         T pop();
