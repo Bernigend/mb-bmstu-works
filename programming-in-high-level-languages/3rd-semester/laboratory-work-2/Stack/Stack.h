@@ -13,6 +13,9 @@
 
 namespace lab {
 
+	template<typename Type>
+	class Queue;
+
     template<typename Type>
     class Stack {
     protected:
@@ -29,6 +32,7 @@ namespace lab {
         explicit Stack(std::size_t _capacity);
         Stack(std::initializer_list<Type> list);
         Stack(const Stack& stack);
+        Stack(const Queue<Type>&);
 
         void push(Type value);
         Type pop();

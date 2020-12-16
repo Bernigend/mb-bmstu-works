@@ -53,6 +53,21 @@ namespace lab {
     }
 
     /**
+     * Конструктор из объекта Stack
+     * @tparam T
+     * @param stack
+     */
+	template<typename T>
+	Queue<T>::Queue(const Stack<T>& stack)
+	{
+		auto tmpStack = Stack<T>(stack);
+
+		while (!tmpStack.empty()) {
+			this->push(tmpStack.pop());
+		}
+	}
+
+    /**
      * Добавляет элемент в конец очереди
      * @tparam T
      * @param value
