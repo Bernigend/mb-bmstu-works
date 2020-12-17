@@ -10,6 +10,9 @@
 
 namespace lab {
 
+	template<typename T>
+	class Stack;
+
     template<typename T>
     struct _queueElement {
         T _value;
@@ -31,6 +34,7 @@ namespace lab {
         Queue(const Queue<T>&);
         Queue(std::initializer_list<T>);
         Queue(Queue<T>&&) noexcept;
+        explicit Queue(const Stack<T>&);
 
         void push(T);
         T pop();
@@ -40,7 +44,7 @@ namespace lab {
         [[nodiscard]] bool empty() const noexcept;
         void clean();
 
-        Queue& operator= (const Queue<T>&);
+        Queue<T>& operator= (const Queue<T>&);
 
         template<typename Type>
         friend std::ostream& operator<< (std::ostream&, const Queue<Type>&);

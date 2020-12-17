@@ -52,6 +52,22 @@ namespace lab {
     }
 
     /**
+     * Конструктор из объекта Queue
+     *
+     * @tparam Type
+     * @param queue
+     */
+	template<typename Type>
+	Stack<Type>::Stack(const Queue<Type>& queue)
+	{
+		auto tmpQueue = Queue<Type>(queue);
+
+		while (!tmpQueue.empty()) {
+			this->push(tmpQueue.pop());
+		}
+	}
+
+    /**
      * Добавляет значение в стек.
      *
      * @tparam Type

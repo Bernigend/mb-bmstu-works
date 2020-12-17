@@ -1,0 +1,29 @@
+Enter x:1.5
+Log(x) from library: 0.4054651081
+Log(x) from me:      0.4054651098
+Decision:            1e-08
+Count:               23
+
+Enter x:3
+Log(x) from library: 1.098612289
+Log(x) from me:      1.098612273
+Decision:            1e-08
+Count:               37
+
+Enter x:0.1
+Log(x) from library: -2.302585093
+Log(x) from me:      -2.302585012
+Decision:            1e-08
+Count:               129
+
+Enter x:0.001
+Log(x) from library: -6.907755279
+Log(x) from me:      -6.907746193
+Decision:            1e-08
+Count:               9281
+
+Enter x:5000
+Log(x) from library: 8.517193191
+Log(x) from me:      8.517148379
+Decision:            1e-08
+Count:               39216
