@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-nullptr"
 #include <iostream>
 #include "AVLTree/AVLTree.h"
 
@@ -20,7 +18,7 @@ int main() {
 
 	// ищем элемент
 	Node* tmp = tree.search(23);
-	if (tmp == NULL) {
+	if (tmp == nullptr) {
 		std::cout << "The value is not found" << std::endl;
 	} else {
 		std::cout << "Address: " << tmp << "; Value: " << tmp->value << ";" << std::endl;
