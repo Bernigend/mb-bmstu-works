@@ -6,24 +6,25 @@
 #define LABORATORY_WORK_8_NODE_H
 
 
-struct Node {
-    int value;
-    int height;
-    Node* left;
-    Node* right;
+template<typename Type>
+class Node {
+public:
+    Type value;
+    int height = 1;
+    Node* left = nullptr;
+    Node* right = nullptr;
 
-    explicit Node(int _value)
+    explicit Node(Type _value)
     {
-        this->value  = _value;
-        this->height = 1;
-        this->left   = nullptr;
-        this->right  = nullptr;
+        this->value = _value;
     }
 
     ~Node()
     {
     	delete this->left;
+    	this->left = nullptr;
     	delete this->right;
+    	this->right = nullptr;
     }
 };
 

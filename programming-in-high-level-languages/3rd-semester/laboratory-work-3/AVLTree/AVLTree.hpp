@@ -2,6 +2,7 @@
 // Created by Bernigend on 05.06.2020.
 //
 
+#include <algorithm>
 #include "AVLTree.h"
 
 
@@ -10,20 +11,24 @@
 // --------------------- //
 
 
-AVLTree::AVLTree() : root(nullptr) {}
+template<typename Type>
+AVLTree<Type>::AVLTree(): root(nullptr) {}
 
-AVLTree::AVLTree(const AVLTree& tree): root(nullptr)
+template<typename Type>
+AVLTree<Type>::AVLTree(const AVLTree& tree): root(nullptr)
 {
 	this->insert(tree);
 }
 
-AVLTree::AVLTree(AVLTree&& tree) noexcept
+template<typename Type>
+AVLTree<Type>::AVLTree(AVLTree&& tree) noexcept
 {
 	this->root = tree.root;
 	tree.root = nullptr;
 }
 
-AVLTree::~AVLTree()
+template<typename Type>
+AVLTree<Type>::~AVLTree()
 {
 	delete this->root;
 	this->root = nullptr;
@@ -34,14 +39,8 @@ AVLTree::~AVLTree()
 // СТАТИЧЕСКИЕ МЕТОДЫ
 // --------------------- //
 
-
-int AVLTree::max(int a1, int a2)
-{
-    return (a1 > a2) ? a1 : a2;
-}
-
-
-Node* AVLTree::getMinNode(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::getMinNode(Node<Type>* node)
 {
     if (node == nullptr) return nullptr;
     else if (node->left == nullptr) return node;
@@ -49,21 +48,24 @@ Node* AVLTree::getMinNode(Node* node)
 }
 
 
-int AVLTree::nodeHeight(Node* node)
+template<typename Type>
+int AVLTree<Type>::nodeHeight(Node<Type>* node)
 {
     if (node == nullptr) return 0;
     return node->height;
 }
 
 
-void AVLTree::fixNodeHeight(Node* node)
+template<typename Type>
+void AVLTree<Type>::fixNodeHeight(Node<Type>* node)
 {
     if (node == nullptr) return;
-    node->height = max(nodeHeight(node->left), nodeHeight(node->right)) + 1;
+    node->height = std::max(nodeHeight(node->left), nodeHeight(node->right)) + 1;
 }
 
 
-int AVLTree::getNodeBalance(Node* node)
+template<typename Type>
+int AVLTree<Type>::getNodeBalance(Node<Type>* node)
 {
     if (node == nullptr) return 0;
     return nodeHeight(node->left) - nodeHeight(node->right);
@@ -76,7 +78,8 @@ int AVLTree::getNodeBalance(Node* node)
  * @param value
  * @return
  */
-Node* AVLTree::fixNodeBalanceInsert(Node* node, int value)
+template<typename Type>
+Node<Type>* AVLTree<Type>::fixNodeBalanceInsert(Node<Type>* node, Type value)
 {
     int balance = getNodeBalance(node);
 
@@ -97,7 +100,8 @@ Node* AVLTree::fixNodeBalanceInsert(Node* node, int value)
  * @param node
  * @return
  */
-Node* AVLTree::fixNodeBalanceRemove(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::fixNodeBalanceRemove(Node<Type>* node)
 {
     if (nodeHeight(node->left) - nodeHeight(node->right) == 2)
     {
@@ -116,10 +120,11 @@ Node* AVLTree::fixNodeBalanceRemove(Node* node)
 }
 
 
-Node* AVLTree::rightRotation(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::rightRotation(Node<Type>* node)
 {
-    Node* tmp1 = node->left;
-    Node* tmp2 = tmp1->right;
+    Node<Type>* tmp1 = node->left;
+    Node<Type>* tmp2 = tmp1->right;
 
     tmp1->right = node;
     node->left = tmp2;
@@ -131,17 +136,19 @@ Node* AVLTree::rightRotation(Node* node)
 }
 
 
-Node* AVLTree::doubleRightRotation(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::doubleRightRotation(Node<Type>* node)
 {
     node->left = leftRotation(node->left);
     return rightRotation(node);
 }
 
 
-Node* AVLTree::leftRotation(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::leftRotation(Node<Type>* node)
 {
-    Node* tmp1 = node->right;
-    Node* tmp2 = tmp1->left;
+    Node<Type>* tmp1 = node->right;
+    Node<Type>* tmp2 = tmp1->left;
 
     tmp1->left = node;
     node->right = tmp2;
@@ -153,16 +160,18 @@ Node* AVLTree::leftRotation(Node* node)
 }
 
 
-Node* AVLTree::doubleLeftRotation(Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::doubleLeftRotation(Node<Type>* node)
 {
     node->right = rightRotation(node->right);
     return leftRotation(node);
 }
 
 
-Node* AVLTree::insert(int value, Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::insert(Type value, Node<Type>* node)
 {
-    if (node == nullptr) return new Node(value);
+    if (node == nullptr) return new Node<Type>(value);
 
     if (value < node->value) {
         node->left = insert(value, node->left);
@@ -175,9 +184,10 @@ Node* AVLTree::insert(int value, Node* node)
 }
 
 
-Node* AVLTree::remove(int value, Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::remove(Type value, Node<Type>* node)
 {
-    Node* temp;
+    Node<Type>* temp;
 
     if (node == nullptr) return nullptr;
     else if (value < node->value) node->left  = remove(value, node->left);
@@ -205,7 +215,8 @@ Node* AVLTree::remove(int value, Node* node)
 }
 
 
-Node* AVLTree::search(int value, Node* node)
+template<typename Type>
+Node<Type>* AVLTree<Type>::search(Type value, Node<Type>* node)
 {
     if (node == nullptr) return nullptr;
 
@@ -219,7 +230,8 @@ Node* AVLTree::search(int value, Node* node)
 }
 
 
-void AVLTree::preOrderMove(Node* node, const std::function<void(int)>& callback)
+template<typename Type>
+void AVLTree<Type>::preOrderMove(Node<Type>* node, const std::function<void(Type)>& callback)
 {
 	if (node == nullptr) { return; }
 	callback(node->value);
@@ -228,7 +240,8 @@ void AVLTree::preOrderMove(Node* node, const std::function<void(int)>& callback)
 }
 
 
-void AVLTree::inOrderMove(Node* node, const std::function<void(int)>& callback)
+template<typename Type>
+void AVLTree<Type>::inOrderMove(Node<Type>* node, const std::function<void(Type)>& callback)
 {
 	if (node == nullptr) { return; }
 	AVLTree::inOrderMove(node->left, callback);
@@ -237,7 +250,8 @@ void AVLTree::inOrderMove(Node* node, const std::function<void(int)>& callback)
 }
 
 
-void AVLTree::postOrderMove(Node* node, const std::function<void(int)>& callback)
+template<typename Type>
+void AVLTree<Type>::postOrderMove(Node<Type>* node, const std::function<void(Type)>& callback)
 {
 	if (node == nullptr) { return; }
 	AVLTree::postOrderMove(node->left, callback);
@@ -251,54 +265,68 @@ void AVLTree::postOrderMove(Node* node, const std::function<void(int)>& callback
 // --------------------- //
 
 
-void AVLTree::insert(int value)
+template<typename Type>
+void AVLTree<Type>::insert(Type value)
 {
     this->root = AVLTree::insert(value, this->root);
 }
 
-void AVLTree::insert(const AVLTree& tree)
+template<typename Type>
+void AVLTree<Type>::insert(const AVLTree<Type>& tree)
 {
-	AVLTree::inOrderMove(tree.root, [=](int value) {
+	AVLTree::inOrderMove(tree.root, [=](Type value) {
 		this->insert(value);
 	});
 }
 
 
-void AVLTree::remove(int value)
+template<typename Type>
+void AVLTree<Type>::remove(Type value)
 {
     this->root = AVLTree::remove(value, this->root);
 }
 
-void AVLTree::clearTree()
+template<typename Type>
+void AVLTree<Type>::clearTree()
 {
 	delete this->root;
 	this->root = nullptr;
 }
 
 
-Node* AVLTree::search(int value) const
+template<typename Type>
+bool AVLTree<Type>::search(Type value) const
 {
-    return AVLTree::search(value, this->root);
+    return AVLTree::search(value, this->root) != nullptr;
+}
+
+template<typename Type>
+Node<Type>* AVLTree<Type>::getSubtree(Type rootValue)
+{
+	return AVLTree::search(rootValue, this->root);
 }
 
 
-void AVLTree::preOrderPrint(std::ostream& out) const
+template<typename Type>
+void AVLTree<Type>::preOrderPrint(std::ostream& out) const
 {
-	AVLTree::preOrderMove(this->root, [&out](int value) {
+	AVLTree::preOrderMove(this->root, [&out](Type value) {
 		out << value << ' ';
 	});
 }
 
-void AVLTree::inOrderPrint(std::ostream& out) const
+template<typename Type>
+void AVLTree<Type>::inOrderPrint(std::ostream& out) const
 {
-	AVLTree::inOrderMove(this->root, [&out](int value) {
+	AVLTree::inOrderMove(this->root, [&out](Type value) {
 		out << value << ' ';
 	});
 }
 
-void AVLTree::postOrderPrint(std::ostream& out) const
+template<typename Type>
+void AVLTree<Type>::postOrderPrint(std::ostream& out) const
 {
-	AVLTree::postOrderMove(this->root, [&out](int value) {
+	AVLTree::postOrderMove(this->root, [&out](Type value) {
 		out << value << ' ';
 	});
 }
@@ -309,7 +337,8 @@ void AVLTree::postOrderPrint(std::ostream& out) const
 // --------------------- //
 
 
-std::ostream& operator<< (std::ostream& out, const AVLTree& tree)
+template<typename Type>
+std::ostream& operator<< (std::ostream& out, const AVLTree<Type>& tree)
 {
 	tree.inOrderPrint(out);
 	return out;

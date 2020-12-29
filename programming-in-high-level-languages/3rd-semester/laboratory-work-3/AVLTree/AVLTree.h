@@ -10,32 +10,32 @@
 #include <functional>
 #include "Node.h"
 
+template<typename Type>
 class AVLTree {
 protected:
-    Node* root;
+    Node<Type>* root = nullptr;
 
-    static int max(int a1, int a2);
-    static Node* getMinNode(Node* node);
+    static Node<Type>* getMinNode(Node<Type>* node);
 
-    static int nodeHeight(Node* node);
-    static void fixNodeHeight(Node* node);
+    static int nodeHeight(Node<Type>* node);
+    static void fixNodeHeight(Node<Type>* node);
 
-    static int getNodeBalance(Node* node);
-    static Node* fixNodeBalanceInsert(Node* node, int value);
-    static Node* fixNodeBalanceRemove(Node* node);
+    static int getNodeBalance(Node<Type>* node);
+    static Node<Type>* fixNodeBalanceInsert(Node<Type>* node, Type value);
+    static Node<Type>* fixNodeBalanceRemove(Node<Type>* node);
 
-    static Node* rightRotation(Node* node);
-    static Node* doubleRightRotation(Node* node);
-    static Node* leftRotation(Node* node);
-    static Node* doubleLeftRotation(Node* node);
+    static Node<Type>* rightRotation(Node<Type>* node);
+    static Node<Type>* doubleRightRotation(Node<Type>* node);
+    static Node<Type>* leftRotation(Node<Type>* node);
+    static Node<Type>* doubleLeftRotation(Node<Type>* node);
 
-    static Node* insert(int, Node* node);
-    static Node* remove(int value, Node* node);
-    static Node* search(int, Node* node);
+    static Node<Type>* insert(Type, Node<Type>* node);
+    static Node<Type>* remove(Type value, Node<Type>* node);
+    static Node<Type>* search(Type, Node<Type>* node);
 
-    static void preOrderMove(Node* node, const std::function<void(int)>& callback);
-    static void inOrderMove(Node* node, const std::function<void(int)>& callback);
-    static void postOrderMove(Node* node, const std::function<void(int)>& callback);
+    static void preOrderMove(Node<Type>* node, const std::function<void(Type)>& callback);
+    static void inOrderMove(Node<Type>* node, const std::function<void(Type)>& callback);
+    static void postOrderMove(Node<Type>* node, const std::function<void(Type)>& callback);
 
 public:
     AVLTree();
@@ -43,18 +43,22 @@ public:
     AVLTree(AVLTree&& tree) noexcept;
     ~AVLTree();
 
-    void insert(int value);
+    void insert(Type value);
     void insert(const AVLTree& tree);
-    void remove(int value);
+    void remove(Type value);
     void clearTree();
-    Node* search(int value) const;
+    bool search(Type value) const;
+    Node<Type>* getSubtree(Type rootValue);
 
     void preOrderPrint(std::ostream& out) const;
     void inOrderPrint(std::ostream& out) const;
     void postOrderPrint(std::ostream& out) const;
 
-    friend std::ostream& operator<< (std::ostream& out, const AVLTree& tree);
+	template<typename Type2>
+    friend std::ostream& operator<< (std::ostream& out, const AVLTree<Type2>& tree);
 };
+
+#include "AVLTree.hpp"
 
 
 #endif //LABORATORY_WORK_8_AVLTREE_H
