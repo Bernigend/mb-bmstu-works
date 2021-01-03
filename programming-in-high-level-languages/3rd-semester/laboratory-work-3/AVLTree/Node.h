@@ -21,10 +21,10 @@ public:
 
     ~Node()
     {
-    	delete this->left;
-    	this->left = nullptr;
-    	delete this->right;
-    	this->right = nullptr;
+        delete this->left;
+        this->left = nullptr;
+        delete this->right;
+        this->right = nullptr;
     }
 };
 
