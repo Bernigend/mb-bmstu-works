@@ -3,4 +3,4 @@ project(laboratory_work_3)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(laboratory_work_3 main.cpp AVLTree/AVLTree.h AVLTree/AVLTree.hpp AVLTree/Node.h)
+add_executable(laboratory_work_3 main.cpp AvlTree/AvlTree.h AvlTree/AvlTree.hpp)
