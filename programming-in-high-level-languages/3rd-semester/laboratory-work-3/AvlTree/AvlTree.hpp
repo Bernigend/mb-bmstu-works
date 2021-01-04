@@ -195,11 +195,9 @@ typename AvlTree<Type>::Node* AvlTree<Type>::insert(Node* node, const Type& valu
 
     if (value < node->value) {
         node->left = this->insert(node->left, value);
-    }
-    else if (value > node->value) {
+    } else if (value > node->value) {
         node->right = this->insert(node->right, value);
-    }
-    else {
+    } else {
         return node;
     }
 
@@ -217,26 +215,21 @@ typename AvlTree<Type>::Node* AvlTree<Type>::deleteNode(Node* root, const Type& 
 
     if (value < root->value) {
         root->left = this->deleteNode(root->left, value);
-    }
-    else if (value > root->value) {
+    } else if (value > root->value) {
         root->right = this->deleteNode(root->right, value);
-    }
-    else {
+    } else {
         if (root->left == nullptr || root->right == nullptr) {
             Node* temp = root->left ? root->left : root->right;
 
             if (temp == nullptr) {
                 temp = root;
                 root = nullptr;
-            }
-            else {
+            } else {
                 *root = *temp;
             }
 
             delete temp;
-        }
-        else
-        {
+        } else {
             Node* temp = this->getNodeWithMinimalValue(root->right);
             root->value = temp->value;
             root->right = this->deleteNode(root->right, temp->value);
@@ -301,4 +294,102 @@ void AvlTree<Type>::postOrderMove(Node* node, const std::function<void(const Typ
 // --------------------- //
 
 
+template<typename Type>
+void AvlTree<Type>::insert(const Type& value)
+{
+    std::lock_guard<std::recursive_mutex> locker(_mtx);
+    this->_root = this->insert(this->_root, value);
+}
 
+
+template<typename Type>
+void AvlTree<Type>::insert(const AvlTree<Type>& tree)
+{
+    AvlTree::inOrderMove(tree._root, [=](const Type& value) {
+        std::lock_guard<std::recursive_mutex> locker(_mtx);
+        this->insert(value);
+    });
+}
+
+
+template<typename Type>
+void AvlTree<Type>::remove(const Type& value)
+{
+    std::lock_guard<std::recursive_mutex> locker(_mtx);
+    this->_root = this->deleteNode(this->_root, value);
+}
+
+
+template<typename Type>
+void AvlTree<Type>::clearTree()
+{
+    if (this->_root == nullptr) return;
+
+    this->_root->clearChildren();
+    delete this->_root;
+    this->_root = nullptr;
+}
+
+
+template<typename Type>
+bool AvlTree<Type>::search(const Type& value) const
+{
+    std::lock_guard<std::recursive_mutex> locker(_mtx);
+    return this->searchNode(this->_root, value) != nullptr;
+}
+
+
+template<typename Type>
+AvlTree<Type>* AvlTree<Type>::getSubtree(const Type& rootValue)
+{
+    std::lock_guard<std::recursive_mutex> locker(_mtx);
+    Node* foundNode = this->searchNode(this->_root, rootValue);
+    if (foundNode == nullptr) return nullptr;
+
+    auto* result = new AvlTree<Type>;
+    AvlTree::inOrderMove(foundNode, [&result](const Type& value) {
+        result->insert(value);
+    });
+
+    return result;
+}
+
+
+template<typename Type>
+void AvlTree<Type>::preOrderPrint(std::ostream& out) const
+{
+    AvlTree::preOrderMove(this->_root, [&out](const Type& value) {
+        out << value << ' ';
+    });
+}
+
+
+template<typename Type>
+void AvlTree<Type>::inOrderPrint(std::ostream& out) const
+{
+    AvlTree::inOrderMove(this->_root, [&out](const Type& value) {
+        out << value << ' ';
+    });
+}
+
+
+template<typename Type>
+void AvlTree<Type>::postOrderPrint(std::ostream& out) const
+{
+    AvlTree::postOrderMove(this->_root, [&out](const Type& value) {
+        out << value << ' ';
+    });
+}
+
+
+// --------------------- //
+// ДРУЖЕСТВЕННЫЕ ФУНКЦИИ
+// --------------------- //
+
+
+template<typename OutputType>
+std::ostream& operator<<(std::ostream& out, const AvlTree<OutputType>& tree)
+{
+    tree.inOrderPrint(out);
+    return out;
+}

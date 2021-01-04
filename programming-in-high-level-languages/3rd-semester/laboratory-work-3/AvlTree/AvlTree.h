@@ -174,108 +174,56 @@ public:
      * Добавляет элемент в дерево
      * @param value
      */
-    void insert(const Type& value)
-    {
-        std::lock_guard<std::recursive_mutex> locker(_mtx);
-        this->_root = this->insert(this->_root, value);
-    }
+    void insert(const Type& value);
 
     /**
      * Добавляет элементы другого дерева в текущее
      * @param tree
      */
-    void insert(const AvlTree<Type>& tree)
-    {
-        AvlTree::inOrderMove(tree._root, [=](const Type& value) {
-            std::lock_guard<std::recursive_mutex> locker(_mtx);
-            this->insert(value);
-        });
-    }
+    void insert(const AvlTree<Type>& tree);
 
     /**
      * Удаляет элемент из дерева
      * @param value
      */
-    void remove(const Type& value)
-    {
-        std::lock_guard<std::recursive_mutex> locker(_mtx);
-        this->_root = this->deleteNode(this->_root, value);
-    }
+    void remove(const Type& value);
 
     /**
      * Очищает дерево от элементов
      */
-    void clearTree()
-    {
-        if (this->_root == nullptr) return;
-
-        this->_root->clearChildren();
-        delete this->_root;
-        this->_root = nullptr;
-    }
+    void clearTree();
 
     /**
      * Возвращает true, если существует элемент с указанным значением
      * @param value
      * @return
      */
-    bool search(const Type& value) const
-    {
-        std::lock_guard<std::recursive_mutex> locker(_mtx);
-        return this->searchNode(this->_root, value) != nullptr;
-    }
+    bool search(const Type& value) const;
 
     /**
      * Возвращает поддерево, корнем которого является указанное значение
      * @param rootValue
      * @return
      */
-    AvlTree<Type>* getSubtree(const Type& rootValue)
-    {
-        std::lock_guard<std::recursive_mutex> locker(_mtx);
-        Node* foundNode = this->searchNode(this->_root, rootValue);
-        if (foundNode == nullptr) return nullptr;
-
-        auto* result = new AvlTree<Type>;
-        AvlTree::inOrderMove(foundNode, [&result](const Type& value) {
-            result->insert(value);
-        });
-
-        return result;
-    }
+    AvlTree<Type>* getSubtree(const Type& rootValue);
 
     /**
      * Выводит элементы в порядке КЛП
      * @param out
      */
-    void preOrderPrint(std::ostream& out) const
-    {
-        AvlTree::preOrderMove(this->_root, [&out](const Type& value) {
-            out << value << ' ';
-        });
-    }
+    void preOrderPrint(std::ostream& out) const;
 
     /**
      * Выводит элементы в порядке ЛКП
      * @param out
      */
-    void inOrderPrint(std::ostream& out) const
-    {
-        AvlTree::inOrderMove(this->_root, [&out](const Type& value) {
-            out << value << ' ';
-        });
-    }
+    void inOrderPrint(std::ostream& out) const;
 
     /**
      * Выводит элементы в порядке ЛПК
      * @param out
      */
-    void postOrderPrint(std::ostream& out) const
-    {
-        AvlTree::postOrderMove(this->_root, [&out](const Type& value) {
-            out << value << ' ';
-        });
-    }
+    void postOrderPrint(std::ostream& out) const;
 
     /**
      * Выводит элементы в порядке ЛПК
@@ -285,12 +233,6 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const AvlTree<OutputType>& tree);
 };
 
-template<typename OutputType>
-std::ostream& operator<<(std::ostream& out, const AvlTree<OutputType>& tree)
-{
-    tree.inOrderPrint(out);
-    return out;
-}
 
 #include "AvlTree.hpp"
 
