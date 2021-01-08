@@ -2,8 +2,6 @@
 // Created by Bernigend on 04.01.2021.
 //
 
-#include "AvlTree.h"
-
 
 // --------------------- //
 // КОНСТРУКТОРЫ
@@ -11,7 +9,7 @@
 
 
 template<typename Type>
-AvlTree<Type>::AvlTree() : _root(nullptr) {}
+AvlTree<Type>::AvlTree() noexcept : _root(nullptr) {}
 
 
 template<typename Type>
@@ -340,15 +338,24 @@ bool AvlTree<Type>::search(const Type& value) const
 
 
 template<typename Type>
-AvlTree<Type>* AvlTree<Type>::getSubtree(const Type& rootValue)
+bool AvlTree<Type>::isEmpty() const
+{
+    return this->_root == nullptr;
+}
+
+
+template<typename Type>
+AvlTree<Type> AvlTree<Type>::getSubtree(const Type& rootValue)
 {
     std::lock_guard<std::recursive_mutex> locker(_mtx);
-    Node* foundNode = this->searchNode(this->_root, rootValue);
-    if (foundNode == nullptr) return nullptr;
 
-    auto* result = new AvlTree<Type>;
+    AvlTree<Type> result = AvlTree<Type>();
+
+    Node* foundNode = this->searchNode(this->_root, rootValue);
+    if (foundNode == nullptr) return result;
+
     AvlTree::inOrderMove(foundNode, [&result](const Type& value) {
-        result->insert(value);
+        result.insert(value);
     });
 
     return result;

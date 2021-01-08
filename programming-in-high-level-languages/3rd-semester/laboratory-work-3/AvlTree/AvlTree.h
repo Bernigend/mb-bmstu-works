@@ -29,8 +29,11 @@ protected:
 
         void clearChildren()
         {
+            if (this->left != nullptr) this->left->clearChildren();
             delete this->left;
             this->left = nullptr;
+
+            if (this->right != nullptr) this->right->clearChildren();
             delete this->right;
             this->right = nullptr;
         }
@@ -145,7 +148,7 @@ public:
     /**
      * Конструктор по умолчанию
      */
-    AvlTree();
+    AvlTree() noexcept;
 
     /**
      * Конструктор копирования
@@ -201,11 +204,17 @@ public:
     bool search(const Type& value) const;
 
     /**
+     * Возвращает true, если у дерева нет элементов
+     * @return
+     */
+    bool isEmpty() const;
+
+    /**
      * Возвращает поддерево, корнем которого является указанное значение
      * @param rootValue
      * @return
      */
-    AvlTree<Type>* getSubtree(const Type& rootValue);
+    AvlTree<Type> getSubtree(const Type& rootValue);
 
     /**
      * Выводит элементы в порядке КЛП

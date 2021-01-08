@@ -94,9 +94,9 @@ int main()
     std::cout << std::endl;
 
     // получение поддерева
-    AvlTree<int>* subtree = tree_int.getSubtree(5);
-    if (subtree != nullptr) {
-        std::cout << "Tree address: " << subtree << "; Tree: " << *subtree << std::endl;
+    AvlTree<int> subtree = tree_int.getSubtree(5);
+    if (!subtree.isEmpty()) {
+        std::cout << "Tree: " << subtree << std::endl;
     } else {
         std::cout << "Tree is not found" << std::endl;
     }
