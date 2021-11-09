@@ -1,29 +1,82 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"sync"
+	"log"
+	"os"
 )
 
 func main() {
-	var cnt int64
+	var err error
+	var system LinearEquationList
 
-	wg := sync.WaitGroup{}
-	sm := sync.Mutex{}
+	//fmt.Println("Enter a system of equations.")
+	//fmt.Println("One equation = one line.")
+	//fmt.Println("The separator is a space.")
+	//fmt.Println("The rightmost number is the value of the expression.")
+	//
+	//fmt.Println()
+	//
+	//scanner := bufio.NewScanner(os.Stdin)
+	//system, err := createLinearEquationListFromScanner(scanner)
+	//if err != nil {
+	//	log.Fatalln(err)
+	//}
 
-	for i := 0; i < 1000; i++ {
-		wg.Add(1)
+	// --------------------------------------------------------
 
-		go func(wg *sync.WaitGroup, sm *sync.Mutex) {
-			sm.Lock()
-			cnt++
-			sm.Unlock()
+	//system = LinearEquationList{
+	//	LinearEquation{
+	//		Coefficients: []float64{ 5, 2 },
+	//		Value:        7,
+	//	},
+	//	LinearEquation{
+	//		Coefficients: []float64{ 2, 1 },
+	//		Value:        9,
+	//	},
+	//}
 
-			wg.Done()
-		}(&wg, &sm)
+	system = LinearEquationList{
+		LinearEquation{
+			Coefficients: []float64{2, 1, 1},
+			Value:        2,
+		},
+		LinearEquation{
+			Coefficients: []float64{1, -1, 0},
+			Value:        -2,
+		},
+		LinearEquation{
+			Coefficients: []float64{3, -1, 2},
+			Value:        2,
+		},
 	}
 
-	wg.Wait()
+	fmt.Println("Your linear list system:") // --------------------------------------------------------
+	writer := bufio.NewWriter(os.Stdout)
+	err = system.print(writer)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	writer.Flush()
 
-	fmt.Println(cnt)
+	fmt.Println() // --------------------------------------------------------
+
+	fmt.Println("Solve by Gauss")
+	res, err := system.createClone().solveByGauss()
+	if err != nil {
+		fmt.Println("error:", err)
+	} else {
+		fmt.Println(res)
+	}
+
+	fmt.Println() // --------------------------------------------------------
+
+	fmt.Println("Solve by Kramer")
+	res, err = system.createClone().solveByKramer()
+	if err != nil {
+		fmt.Println("error:", err)
+	} else {
+		fmt.Println(res)
+	}
 }

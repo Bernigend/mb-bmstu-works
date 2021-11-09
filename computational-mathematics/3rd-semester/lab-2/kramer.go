@@ -45,16 +45,25 @@ func calculateColumnDeterminant(list LinearEquationList, column int) float64 {
 func calculateMatrixDeterminant(list LinearEquationList) float64 {
 	equationsCount := list.getCount()
 
+	if equationsCount == 1 {
+		return list[0].Coefficients[0]
+	}
+
+	if equationsCount == 2 {
+		return (list[0].Coefficients[0] * list[1].Coefficients[1]) - (list[1].Coefficients[0] * list[0].Coefficients[1])
+	}
+
 	leftPart := 0.0
 	for i := 0; i < equationsCount; i++ {
 		tmp := 1.0
 		for row := 0; row < equationsCount; row++ {
-			coefficientIndex := row+i
+			coefficientIndex := row + i
 			if coefficientIndex >= equationsCount {
 				coefficientIndex = coefficientIndex % equationsCount
 			}
 
-			tmp *= list[row].Coefficients[coefficientIndex]
+			coefficient := list[row].Coefficients[coefficientIndex]
+			tmp *= coefficient
 		}
 		leftPart += tmp
 	}
@@ -62,13 +71,14 @@ func calculateMatrixDeterminant(list LinearEquationList) float64 {
 	rightPart := 0.0
 	for i := 0; i < equationsCount; i++ {
 		tmp := 1.0
-		for row := equationsCount-1; row >= 0; row-- {
-			coefficientIndex := ((equationsCount-1) - row)+i
+		for row := equationsCount - 1; row >= 0; row-- {
+			coefficientIndex := ((equationsCount - 1) - row) + i
 			if coefficientIndex >= equationsCount {
 				coefficientIndex = coefficientIndex % equationsCount
 			}
 
-			tmp *= list[row].Coefficients[coefficientIndex]
+			coefficient := list[row].Coefficients[coefficientIndex]
+			tmp *= coefficient
 		}
 		rightPart += tmp
 	}
